@@ -14,44 +14,46 @@ from kivymd.uix.filemanager import MDFileManager
 import datetime
 from kivymd.uix.dialog import MDDialog
 import numpy as np
-from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+from exceptions import IDError, InvalidPasswordError, EmptyClassSpinnerError, EmptyFieldError, NoAmountError, SignitoryError, DuplicateFeesError, ConfirmationDialog, AuthorizationError
+
+# from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 import matplotlib.pyplot as plt
 
 
-class EmptyClassSpinnerError(Exception):
-    pass
+# class EmptyClassSpinnerError(Exception):
+#     pass
 
 
-class InvalidPasswordError(Exception):
-    pass
+# class InvalidPasswordError(Exception):
+#     pass
 
 
-class EmptyFieldError(Exception):
-    pass
+# class EmptyFieldError(Exception):
+#     pass
 
 
-class ConfirmationDialog(Exception):
-    pass
+# class ConfirmationDialog(Exception):
+#     pass
 
 
-class DuplicateFeesError(Exception):
-    pass
+# class DuplicateFeesError(Exception):
+#     pass
 
 
-class AuthorizationError(Exception):
-    pass
+# class AuthorizationError(Exception):
+#     pass
 
 
-class NoAmountError(Exception):
-    pass
+# class NoAmountError(Exception):
+#     pass
 
 
-class IDError(Exception):
-    pass
+# class IDError(Exception):
+#     pass
 
 
-class SignitoryError(Exception):
-    pass
+# class SignitoryError(Exception):
+#     pass
 
 
 class Logo(Screen):
