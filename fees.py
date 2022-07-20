@@ -479,7 +479,7 @@ class PaymentPlatform(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Success!",
                 text=f"You have succesfully made a transaction",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
