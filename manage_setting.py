@@ -14,7 +14,8 @@ class Manage(Screen):
             text="Are you sure you want to log out?",
             buttons=[
                 MDRectangleFlatButton(
-                    text="YES", on_release=self.close_dialog_and_logout),
+                    text="YES", on_release=self.close_dialog_and_logout
+                ),
                 MDFlatButton(
                     text="NO", on_release=self.close_dialog
                 ),
@@ -33,13 +34,13 @@ class Manage(Screen):
 class Set(Screen):
     def confirmation_of_promotion_dialog(self):
         self.confirmation_promotion_dialog = MDDialog(
-            title="Warning!",
-            text="Clicking 'YES' will move all students to the next grade. Grade 9 students will be removed from the fees list. They can be added back using the 'Reverse Promotion' only once!",
+            title="Confirm promotion?!",
+            text="""Confirm promotion? Clicking 'YES' will move all students to the next grade. Grade 9 students will be removed from the fees list. They can be added back using the 'Reverse Promotion' only once!""",
             radius=[40, 7, 40, 7],
             auto_dismiss=False,
             buttons=[
                 MDRectangleFlatButton(
-                    text="YES", on_release=self.promote_students
+                    text="YES", on_release=self.promote_students, on_press=self.close_confirmation_promotion_dialog
                 ),
                 MDFlatButton(
                     text="NO", on_release=self.close_confirmation_promotion_dialog
@@ -52,361 +53,358 @@ class Set(Screen):
         self.confirmation_promotion_dialog.dismiss()
 
     def promote_students(self, obj):
-        completed_date = datetime.date.today()
-        self.completed_year = completed_date.year
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("UPDATE completed_students SET completed_year = ?",
-                  (self.completed_year,))
-        c.execute(
-            "UPDATE completed_students SET completion_level = '#'")
-        conn.commit()
-        conn.close()
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """INSERT OR IGNORE INTO completed_students(full_name, registration_number,
-                grade, grade_and_category, status, arrears)
-                SELECT full_name, registration_number,
-                grade, grade_and_category, status, balance FROM fees_payable
-                WHERE grade = 'Grade 9'
-                """)
-        c.execute(
-            "UPDATE completed_students SET completed_year = ? WHERE completion_level = 'o'",
-            (self.completed_year,))
-        conn.commit()
-        conn.close()
+        try:
+            completed_date = datetime.date.today()
+            self.completed_year = completed_date.year
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("UPDATE completed_students SET completed_year = ?",
+                      (self.completed_year,))
+            c.execute(
+                "UPDATE completed_students SET completion_level = '#'")
+            conn.commit()
+            conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """INSERT OR IGNORE INTO completed_students(full_name, registration_number,
+                    grade, grade_and_category, status, arrears)
+                    SELECT full_name, registration_number,
+                    grade, grade_and_category, status, balance FROM fees_payable
+                    WHERE grade = 'Grade 9'
+                    """)
+            c.execute(
+                "UPDATE completed_students SET completed_year = ? WHERE completion_level = 'o'",
+                (self.completed_year,))
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            "UPDATE completed_students SET completion_level = 'o' WHERE completion_level = 'o'")
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                "UPDATE completed_students SET completion_level = 'o' WHERE completion_level = 'o'")
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            "UPDATE completed_students SET completion_level = 'c' WHERE completion_level = 'o'")
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                "UPDATE completed_students SET completion_level = 'c' WHERE completion_level = 'o'")
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """UPDATE students
-                SET completion_level = 'c'
-                FROM completed_students
-                WHERE completed_students.registration_number = students.registration_number
-                """)
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """UPDATE students
+                    SET completion_level = 'c'
+                    FROM completed_students
+                    WHERE completed_students.registration_number = students.registration_number
+                    """)
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """UPDATE students
-                SET completed_arrear = arrears
-                FROM completed_students
-                WHERE completed_students.registration_number = students.registration_number
-                """)
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """UPDATE students
+                    SET completed_arrear = arrears
+                    FROM completed_students
+                    WHERE completed_students.registration_number = students.registration_number
+                    """)
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """DELETE FROM fees_payable WHERE grade = 'Grade 9'""")
-        c.execute("""UPDATE fees_paid
-        SET grade_and_category = 'Completed A' WHERE grade_and_category = 'Grade 9A'""")
-        c.execute("""UPDATE fees_paid
-        SET grade_and_category = 'Completed B' WHERE grade_and_category = 'Grade 9B'""")
-        c.execute("""UPDATE students
-        SET current_class = ? WHERE current_class = 'Grade 9A'""", (self.completed_year,))
-        c.execute("""UPDATE students
-        SET current_class = ? WHERE current_class = 'Grade 9B'""", (self.completed_year,))
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """DELETE FROM fees_payable WHERE grade = 'Grade 9'""")
+            c.execute("""UPDATE fees_paid
+            SET grade_and_category = 'Completed A' WHERE grade_and_category = 'Grade 9A'""")
+            c.execute("""UPDATE fees_paid
+            SET grade_and_category = 'Completed B' WHERE grade_and_category = 'Grade 9B'""")
+            c.execute("""UPDATE students
+            SET current_class = ? WHERE current_class = 'Grade 9A'""", (self.completed_year,))
+            c.execute("""UPDATE students
+            SET current_class = ? WHERE current_class = 'Grade 9B'""", (self.completed_year,))
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-        SET grade = 'Grade 9' WHERE grade = 'Grade 8'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 9A' WHERE grade_and_category = 'Grade 8A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 9B' WHERE grade_and_category = 'Grade 8B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 9A' WHERE current_grade = 'Grade 8A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 9B' WHERE current_grade = 'Grade 8B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 9A' WHERE current_class = 'Grade 8A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 9B' WHERE current_class = 'Grade 8B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 9' WHERE grade = 'Grade 8'""")
-        # c.execute("""UPDATE students
-        # SET grade = 'Grade 3' WHERE grade = 'Grade 2'""")
-        # # c.execute("""UPDATE students
-        # SET current_class = 'Grade 9B' WHERE current_class = 'Grade 8B'""")
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+            SET grade = 'Grade 9' WHERE grade = 'Grade 8'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 9A' WHERE grade_and_category = 'Grade 8A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 9B' WHERE grade_and_category = 'Grade 8B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 9A' WHERE current_grade = 'Grade 8A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 9B' WHERE current_grade = 'Grade 8B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 9A' WHERE current_class = 'Grade 8A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 9B' WHERE current_class = 'Grade 8B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 9' WHERE grade = 'Grade 8'""")
+            # c.execute("""UPDATE students
+            # SET grade = 'Grade 3' WHERE grade = 'Grade 2'""")
+            # # c.execute("""UPDATE students
+            # SET current_class = 'Grade 9B' WHERE current_class = 'Grade 8B'""")
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 8' WHERE grade = 'Grade 7'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 8A' WHERE grade_and_category = 'Grade 7A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 8B' WHERE grade_and_category = 'Grade 7B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 8A' WHERE current_grade = 'Grade 7A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 8B' WHERE current_grade = 'Grade 7B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 8A' WHERE current_class = 'Grade 7A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 8B' WHERE current_class = 'Grade 7B'""")
+            c.execute("""UPDATE students
             SET grade = 'Grade 8' WHERE grade = 'Grade 7'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 8A' WHERE grade_and_category = 'Grade 7A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 8B' WHERE grade_and_category = 'Grade 7B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 8A' WHERE current_grade = 'Grade 7A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 8B' WHERE current_grade = 'Grade 7B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 8A' WHERE current_class = 'Grade 7A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 8B' WHERE current_class = 'Grade 7B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 8' WHERE grade = 'Grade 7'""")
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 7' WHERE grade = 'Grade 6'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 7A' WHERE grade_and_category = 'Grade 6A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 7B' WHERE grade_and_category = 'Grade 6B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 7A' WHERE current_grade = 'Grade 6A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 7B' WHERE current_grade = 'Grade 6B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 7A' WHERE current_class = 'Grade 6A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 7B' WHERE current_class = 'Grade 6B'""")
+            c.execute("""UPDATE students
             SET grade = 'Grade 7' WHERE grade = 'Grade 6'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 7A' WHERE grade_and_category = 'Grade 6A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 7B' WHERE grade_and_category = 'Grade 6B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 7A' WHERE current_grade = 'Grade 6A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 7B' WHERE current_grade = 'Grade 6B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 7A' WHERE current_class = 'Grade 6A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 7B' WHERE current_class = 'Grade 6B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 7' WHERE grade = 'Grade 6'""")
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 6' WHERE grade = 'Grade 5'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 6A' WHERE grade_and_category = 'Grade 5A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 6B' WHERE grade_and_category = 'Grade 5B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 6A' WHERE current_grade = 'Grade 5A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 6B' WHERE current_grade = 'Grade 5B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 6A' WHERE current_class = 'Grade 5A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 6B' WHERE current_class = 'Grade 5B'""")
+            c.execute("""UPDATE students
             SET grade = 'Grade 6' WHERE grade = 'Grade 5'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 6A' WHERE grade_and_category = 'Grade 5A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 6B' WHERE grade_and_category = 'Grade 5B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 6A' WHERE current_grade = 'Grade 5A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 6B' WHERE current_grade = 'Grade 5B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 6A' WHERE current_class = 'Grade 5A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 6B' WHERE current_class = 'Grade 5B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 6' WHERE grade = 'Grade 5'""")
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 5' WHERE grade = 'Grade 4'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 5A' WHERE grade_and_category = 'Grade 4A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 5B' WHERE grade_and_category = 'Grade 4B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 5A' WHERE current_grade = 'Grade 4A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 5B' WHERE current_grade = 'Grade 4B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 5A' WHERE current_class = 'Grade 4A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 5B' WHERE current_class = 'Grade 4B'""")
+            c.execute("""UPDATE students
             SET grade = 'Grade 5' WHERE grade = 'Grade 4'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 5A' WHERE grade_and_category = 'Grade 4A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 5B' WHERE grade_and_category = 'Grade 4B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 5A' WHERE current_grade = 'Grade 4A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 5B' WHERE current_grade = 'Grade 4B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 5A' WHERE current_class = 'Grade 4A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 5B' WHERE current_class = 'Grade 4B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 5' WHERE grade = 'Grade 4'""")
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-                SET grade = 'Grade 4' WHERE grade = 'Grade 3'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 4A' WHERE grade_and_category = 'Grade 3A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 4B' WHERE grade_and_category = 'Grade 3B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 4A' WHERE current_grade = 'Grade 3A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 4B' WHERE current_grade = 'Grade 3B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 4A' WHERE current_class = 'Grade 3A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 4B' WHERE current_class = 'Grade 3B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 4' WHERE grade = 'Grade 3'""")
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                    SET grade = 'Grade 4' WHERE grade = 'Grade 3'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 4A' WHERE grade_and_category = 'Grade 3A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 4B' WHERE grade_and_category = 'Grade 3B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 4A' WHERE current_grade = 'Grade 3A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 4B' WHERE current_grade = 'Grade 3B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 4A' WHERE current_class = 'Grade 3A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 4B' WHERE current_class = 'Grade 3B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 4' WHERE grade = 'Grade 3'""")
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 3' WHERE grade = 'Grade 2'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 3A' WHERE grade_and_category = 'Grade 2A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 3B' WHERE grade_and_category = 'Grade 2B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 3A' WHERE current_grade = 'Grade 2A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 3B' WHERE current_grade = 'Grade 2B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 3A' WHERE current_class = 'Grade 2A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 3B' WHERE current_class = 'Grade 2B'""")
+            c.execute("""UPDATE students
             SET grade = 'Grade 3' WHERE grade = 'Grade 2'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 3A' WHERE grade_and_category = 'Grade 2A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 3B' WHERE grade_and_category = 'Grade 2B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 3A' WHERE current_grade = 'Grade 2A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 3B' WHERE current_grade = 'Grade 2B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 3A' WHERE current_class = 'Grade 2A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 3B' WHERE current_class = 'Grade 2B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 3' WHERE grade = 'Grade 2'""")
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 2' WHERE grade = 'Grade 1'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 2A' WHERE grade_and_category = 'Grade 1A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 2B' WHERE grade_and_category = 'Grade 1B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 2A' WHERE current_grade = 'Grade 1A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 2B' WHERE current_grade = 'Grade 1B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 2A' WHERE current_class = 'Grade 1A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 2B' WHERE current_class = 'Grade 1B'""")
+            c.execute("""UPDATE students
             SET grade = 'Grade 2' WHERE grade = 'Grade 1'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 2A' WHERE grade_and_category = 'Grade 1A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 2B' WHERE grade_and_category = 'Grade 1B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 2A' WHERE current_grade = 'Grade 1A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 2B' WHERE current_grade = 'Grade 1B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 2A' WHERE current_class = 'Grade 1A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 2B' WHERE current_class = 'Grade 1B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 2' WHERE grade = 'Grade 1'""")
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 1' WHERE grade = 'KG 2'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 1A' WHERE grade_and_category = 'KG 2A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 1B' WHERE grade_and_category = 'KG 2B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 1A' WHERE current_grade = 'KG 2A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 1B' WHERE current_grade = 'KG 2B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 1A' WHERE current_class = 'KG 2A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 1B' WHERE current_class = 'KG 2B'""")
+            c.execute("""UPDATE students
             SET grade = 'Grade 1' WHERE grade = 'KG 2'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 1A' WHERE grade_and_category = 'KG 2A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 1B' WHERE grade_and_category = 'KG 2B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 1A' WHERE current_grade = 'KG 2A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 1B' WHERE current_grade = 'KG 2B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 1A' WHERE current_class = 'KG 2A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 1B' WHERE current_class = 'KG 2B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 1' WHERE grade = 'KG 2'""")
-        # c.execute("""UPDATE students
-        # SET grade = 'Grade 1' WHERE current_class = 'KG 2B'""")
-        conn.commit()
-        conn.close()
+            # c.execute("""UPDATE students
+            # SET grade = 'Grade 1' WHERE current_class = 'KG 2B'""")
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """UPDATE fees_payable SET grade = 'KG 2' WHERE grade = 'KG 1'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 2A' WHERE grade_and_category = 'KG 1A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 2B' WHERE grade_and_category = 'KG 1B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 2A' WHERE current_grade = 'KG 1A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 2B' WHERE current_grade = 'KG 1B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 2A' WHERE current_class = 'KG 1A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 2B' WHERE current_class = 'KG 1B'""")
-        c.execute("""UPDATE students
-        SET grade = 'KG 2' WHERE grade = 'KG 1'""")
-        conn.commit()
-        conn.commit()
-        conn.close()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """UPDATE fees_payable SET grade = 'KG 2' WHERE grade = 'KG 1'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 2A' WHERE grade_and_category = 'KG 1A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 2B' WHERE grade_and_category = 'KG 1B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 2A' WHERE current_grade = 'KG 1A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 2B' WHERE current_grade = 'KG 1B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 2A' WHERE current_class = 'KG 1A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 2B' WHERE current_class = 'KG 1B'""")
+            c.execute("""UPDATE students
+            SET grade = 'KG 2' WHERE grade = 'KG 1'""")
+            conn.commit()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-                SET grade = 'KG 1' WHERE grade = 'Nursery 2'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 1A' WHERE grade_and_category = 'Nursery 2A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 1B' WHERE grade_and_category = 'Nursery 2B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 1A' WHERE current_grade = 'Nursery 2A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 1B' WHERE current_grade = 'Nursery 2B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 1A' WHERE current_class = 'Nursery 2A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 1B' WHERE current_class = 'Nursery 2B'""")
-        c.execute("""UPDATE students
-        SET grade = 'KG 1' WHERE grade = 'Nursery 2'""")
-        # c.execute("""UPDATE students
-        # SET grade = 'KG 1B' WHERE grade = 'Nursery 2B'""")
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                    SET grade = 'KG 1' WHERE grade = 'Nursery 2'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 1A' WHERE grade_and_category = 'Nursery 2A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 1B' WHERE grade_and_category = 'Nursery 2B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 1A' WHERE current_grade = 'Nursery 2A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 1B' WHERE current_grade = 'Nursery 2B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 1A' WHERE current_class = 'Nursery 2A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 1B' WHERE current_class = 'Nursery 2B'""")
+            c.execute("""UPDATE students
+            SET grade = 'KG 1' WHERE grade = 'Nursery 2'""")
+            # c.execute("""UPDATE students
+            # SET grade = 'KG 1B' WHERE grade = 'Nursery 2B'""")
 
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-        SET grade = 'Nursery 2' WHERE grade = 'Nursery 1'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Nursery 2A' WHERE grade_and_category = 'Nursery 1A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Nursery 2B' WHERE grade_and_category = 'Nursery 1B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Nursery 2A' WHERE current_grade = 'Nursery 1A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Nursery 2B' WHERE current_grade = 'Nursery 1B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Nursery 2A' WHERE current_class = 'Nursery 1A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Nursery 2B' WHERE current_class = 'Nursery 1B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Nursery 2' WHERE grade = 'Nursery 1'""")
-        # c.execute("""UPDATE students
-        # SET grade = 'Nursery 2' WHERE grade = 'Nursery 1B'""")
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+            SET grade = 'Nursery 2' WHERE grade = 'Nursery 1'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Nursery 2A' WHERE grade_and_category = 'Nursery 1A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Nursery 2B' WHERE grade_and_category = 'Nursery 1B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Nursery 2A' WHERE current_grade = 'Nursery 1A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Nursery 2B' WHERE current_grade = 'Nursery 1B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Nursery 2A' WHERE current_class = 'Nursery 1A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Nursery 2B' WHERE current_class = 'Nursery 1B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Nursery 2' WHERE grade = 'Nursery 1'""")
 
-        conn.commit()
-        conn.close()
-        self.confirmation_promotion_dialog.dismiss()
-
-    def successful_promotion(self):
-        self.successful_promotion_dialog = MDDialog(
-            title="Successful Promotion!",
-            text="All students have been successfully promoted to the next class",
-            radius=[40, 7, 40, 7],
-            auto_dismiss=False,
-            buttons=[
-                MDRectangleFlatButton(
-                    text="CLOSE", on_release=self.close_successful_promotion_dialog
-                ),
-            ],
-        )
-        self.successful_promotion_dialog.open()
+            conn.commit()
+            conn.close()
+        finally:
+            self.successful_promotion_dialog = MDDialog(
+                title="Successful Promotion!",
+                text="All students have been successfully promoted to the next class",
+                radius=[40, 7, 40, 7],
+                auto_dismiss=False,
+                buttons=[
+                    MDRectangleFlatButton(
+                        text="CLOSE", on_release=self.close_successful_promotion_dialog
+                    ),
+                ],
+            )
+            self.successful_promotion_dialog.open()
 
     def close_successful_promotion_dialog(self, obj):
         self.successful_promotion_dialog.dismiss()
@@ -419,7 +417,7 @@ class Set(Screen):
             auto_dismiss=False,
             buttons=[
                 MDRectangleFlatButton(
-                    text="YES", on_release=self.reverse_promotion
+                    text="YES", on_release=self.reverse_promotion, on_press=self.close_successful_demotion_dialog
                 ),
                 MDRectangleFlatButton(
                     text="NO", on_release=self.close_successful_demotion_dialog
@@ -428,299 +426,302 @@ class Set(Screen):
         )
         self.confirmation_demotion_dialog.open()
 
-    def reverse_promotion(self, obj):
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """UPDATE fees_payable SET grade = 'Nursery 1' WHERE grade = 'Nursery 2'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Nursery 1A' WHERE grade_and_category = 'Nursery 2A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Nursery 1B' WHERE grade_and_category = 'Nursery 2B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Nursery 1A' WHERE current_grade = 'Nursery 2A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Nursery 1B' WHERE current_grade = 'Nursery 2B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Nursery 1A' WHERE current_class = 'Nursery 2A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Nursery 1B' WHERE current_class = 'Nursery 2B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Nursery 1' WHERE grade = 'Nursery 2'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-                SET grade = 'Nursery 2' WHERE grade = 'KG 1'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Nursery 2A' WHERE grade_and_category = 'KG 1A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Nursery 2B' WHERE grade_and_category = 'KG 1B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Nursery 2A' WHERE current_grade = 'KG 1A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Nursery 2B' WHERE current_grade = 'KG 1B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Nursery 2A' WHERE current_class = 'KG 1A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Nursery 2B' WHERE current_class = 'KG 1B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Nursery 2' WHERE grade = 'KG 1'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """UPDATE fees_payable SET grade = 'KG 1' WHERE grade = 'KG 2'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 1A' WHERE grade_and_category = 'KG 2A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 1B' WHERE grade_and_category = 'KG 2B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 1A' WHERE current_grade = 'KG 2A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 1B' WHERE current_grade = 'KG 2B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 1A' WHERE current_class = 'KG 2A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 1B' WHERE current_class = 'KG 2B'""")
-        c.execute("""UPDATE students
-        SET grade = 'KG 1' WHERE grade = 'KG 2'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-            SET grade = 'KG 2' WHERE grade = 'Grade 1'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 2A' WHERE grade_and_category = 'Grade 1A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'KG 2B' WHERE grade_and_category = 'Grade 1B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 2A' WHERE current_grade = 'Grade 1A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'KG 2B' WHERE current_grade = 'Grade 1B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 2A' WHERE current_class = 'Grade 1A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'KG 2B' WHERE current_class = Grade 1B""")
-        c.execute("""UPDATE students
-        SET grade = 'KG 2' WHERE grade = 'Grade 1'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-            SET grade = 'Grade 1' WHERE grade = 'Grade 2'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 1A' WHERE grade_and_category = 'Grade 2A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 1B' WHERE grade_and_category = 'Grade 2B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 1A' WHERE current_grade = 'Grade 2A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 1B' WHERE current_grade = 'Grade 2B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 1A' WHERE current_class = 'Grade 2A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 1B' WHERE current_class = 'Grade 2B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 1' WHERE grade = 'Grade 2'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-            SET grade = 'Grade 2' WHERE grade = 'Grade 3'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 2A' WHERE grade_and_category = 'Grade 3A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 2B' WHERE grade_and_category = 'Grade 3B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 2A' WHERE current_grade = 'Grade 3A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 2B' WHERE current_grade = 'Grade 3B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 2A' WHERE current_class = 'Grade 3A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 2B' WHERE current_class = 'Grade 3B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 2' WHERE grade = 'Grade 3'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-                SET grade = 'Grade 3' WHERE grade = 'Grade 4'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 3A' WHERE grade_and_category = 'Grade 4A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 3B' WHERE grade_and_category = 'Grade 4B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 3A' WHERE current_grade = 'Grade 4A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 3B' WHERE current_grade = 'Grade 4B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 3A' WHERE current_class = 'Grade 4A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 3B' WHERE current_class = 'Grade 4B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 3' WHERE grade = 'Grade 4'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-                SET grade = 'Grade 4' WHERE grade = 'Grade 5'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 4A' WHERE grade_and_category = 'Grade 5A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 4B' WHERE grade_and_category = 'Grade 5B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 4A' WHERE current_grade = 'Grade 5A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 4B' WHERE current_grade = 'Grade 5B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 4A' WHERE current_class = 'Grade 5A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 4B' WHERE current_class = 'Grade 5B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 4' WHERE grade = 'Grade 5'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-            SET grade = 'Grade 5' WHERE grade = 'Grade 6'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 5A' WHERE grade_and_category = 'Grade 6A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 5B' WHERE grade_and_category = 'Grade 6B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 5A' WHERE current_grade = 'Grade 6A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 5B' WHERE current_grade = 'Grade 6B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 5A' WHERE current_class = 'Grade 6A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 5B' WHERE current_class = 'Grade 6B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 5' WHERE grade = 'Grade 6'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-            SET grade = 'Grade 6' WHERE grade = 'Grade 7'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 6A' WHERE grade_and_category = 'Grade 7A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 6B' WHERE grade_and_category = 'Grade 7B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 6A' WHERE current_grade = 'Grade 7A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 6B' WHERE current_grade = 'Grade 7B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 6A' WHERE current_class = 'Grade 7A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 6B' WHERE current_class = 'Grade 7B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 6' WHERE grade = 'Grade 7'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-            SET grade = 'Grade 7' WHERE grade = 'Grade 8'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 7A' WHERE grade_and_category = 'Grade 8A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 7B' WHERE grade_and_category = 'Grade 8B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 7A' WHERE current_grade = 'Grade 8A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 7B' WHERE current_grade = 'Grade 8B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 7A' WHERE current_class = 'Grade 8A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 7B' WHERE current_class = 'Grade 8B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 7' WHERE grade = 'Grade 8'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_payable
-        SET grade = 'Grade 8' WHERE grade = 'Grade 9'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 8A' WHERE grade_and_category = 'Grade 9A'""")
-        c.execute("""UPDATE fees_payable
-        SET grade_and_category = 'Grade 8B' WHERE grade_and_category = 'Grade 9B'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 8A' WHERE current_grade = 'Grade 9A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 8B' WHERE current_grade = 'Grade 9B'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 8A' WHERE current_class = 'Grade 9A'""")
-        c.execute("""UPDATE students
-        SET current_class = 'Grade 8B' WHERE current_class = 'Grade 9B'""")
-        c.execute("""UPDATE students
-        SET grade = 'Grade 8' WHERE grade = 'Grade 9'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 9A' WHERE current_grade = 'Completed A'""")
-        c.execute("""UPDATE fees_paid
-        SET current_grade = 'Grade 9B' WHERE current_grade = 'Completed B'""")
-        c.execute(
-            """INSERT OR IGNORE INTO fees_payable(full_name, registration_number, grade, grade_and_category,
-                    status, balance)
-                SELECT full_name, registration_number, grade, grade_and_category, status, arrears
-                FROM completed_students
-                WHERE completed_students.completion_level = 'c'""")
-        conn.commit()
-        conn.close()
-
-        conn = sqlite3.connect("school.db")
-        c = conn.cursor()
-        c.execute(
-            """DELETE FROM completed_students WHERE completed_students.completion_level = 'c'""")
-        conn.commit()
-        conn.close()
-
+    def close_successful_demotion_dialog(self, obj):
         self.confirmation_demotion_dialog.dismiss()
 
-    def successful_demotion(self):
-        self.successful_demotion_dialog = MDDialog(
-            title="Successful grade reversal!",
-            text="All students have been successfully reversed back to their previous class",
-            radius=[25, 7, 25, 7],
-            auto_dismiss=False,
-            buttons=[
-                MDRectangleFlatButton(
-                    text="close", on_release=self.close_successful_demotion_dialog
-                ),
-            ],
-        )
-        self.successful_demotion_dialog.open()
+    def reverse_promotion(self, obj):
+        try:
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """UPDATE fees_payable SET grade = 'Nursery 1' WHERE grade = 'Nursery 2'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Nursery 1A' WHERE grade_and_category = 'Nursery 2A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Nursery 1B' WHERE grade_and_category = 'Nursery 2B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Nursery 1A' WHERE current_grade = 'Nursery 2A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Nursery 1B' WHERE current_grade = 'Nursery 2B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Nursery 1A' WHERE current_class = 'Nursery 2A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Nursery 1B' WHERE current_class = 'Nursery 2B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Nursery 1' WHERE grade = 'Nursery 2'""")
+            conn.commit()
+            conn.close()
 
-    def close_successful_demotion_dialog(self, obj):
-        self.successful_demotion_dialog.dismiss()
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                    SET grade = 'Nursery 2' WHERE grade = 'KG 1'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Nursery 2A' WHERE grade_and_category = 'KG 1A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Nursery 2B' WHERE grade_and_category = 'KG 1B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Nursery 2A' WHERE current_grade = 'KG 1A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Nursery 2B' WHERE current_grade = 'KG 1B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Nursery 2A' WHERE current_class = 'KG 1A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Nursery 2B' WHERE current_class = 'KG 1B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Nursery 2' WHERE grade = 'KG 1'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """UPDATE fees_payable SET grade = 'KG 1' WHERE grade = 'KG 2'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 1A' WHERE grade_and_category = 'KG 2A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 1B' WHERE grade_and_category = 'KG 2B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 1A' WHERE current_grade = 'KG 2A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 1B' WHERE current_grade = 'KG 2B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 1A' WHERE current_class = 'KG 2A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 1B' WHERE current_class = 'KG 2B'""")
+            c.execute("""UPDATE students
+            SET grade = 'KG 1' WHERE grade = 'KG 2'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'KG 2' WHERE grade = 'Grade 1'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 2A' WHERE grade_and_category = 'Grade 1A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'KG 2B' WHERE grade_and_category = 'Grade 1B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 2A' WHERE current_grade = 'Grade 1A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'KG 2B' WHERE current_grade = 'Grade 1B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 2A' WHERE current_class = 'Grade 1A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'KG 2B' WHERE current_class = 'Grade 1B'""")
+            c.execute("""UPDATE students
+            SET grade = 'KG 2' WHERE grade = 'Grade 1'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 1' WHERE grade = 'Grade 2'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 1A' WHERE grade_and_category = 'Grade 2A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 1B' WHERE grade_and_category = 'Grade 2B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 1A' WHERE current_grade = 'Grade 2A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 1B' WHERE current_grade = 'Grade 2B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 1A' WHERE current_class = 'Grade 2A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 1B' WHERE current_class = 'Grade 2B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 1' WHERE grade = 'Grade 2'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 2' WHERE grade = 'Grade 3'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 2A' WHERE grade_and_category = 'Grade 3A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 2B' WHERE grade_and_category = 'Grade 3B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 2A' WHERE current_grade = 'Grade 3A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 2B' WHERE current_grade = 'Grade 3B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 2A' WHERE current_class = 'Grade 3A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 2B' WHERE current_class = 'Grade 3B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 2' WHERE grade = 'Grade 3'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                    SET grade = 'Grade 3' WHERE grade = 'Grade 4'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 3A' WHERE grade_and_category = 'Grade 4A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 3B' WHERE grade_and_category = 'Grade 4B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 3A' WHERE current_grade = 'Grade 4A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 3B' WHERE current_grade = 'Grade 4B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 3A' WHERE current_class = 'Grade 4A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 3B' WHERE current_class = 'Grade 4B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 3' WHERE grade = 'Grade 4'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                    SET grade = 'Grade 4' WHERE grade = 'Grade 5'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 4A' WHERE grade_and_category = 'Grade 5A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 4B' WHERE grade_and_category = 'Grade 5B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 4A' WHERE current_grade = 'Grade 5A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 4B' WHERE current_grade = 'Grade 5B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 4A' WHERE current_class = 'Grade 5A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 4B' WHERE current_class = 'Grade 5B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 4' WHERE grade = 'Grade 5'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 5' WHERE grade = 'Grade 6'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 5A' WHERE grade_and_category = 'Grade 6A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 5B' WHERE grade_and_category = 'Grade 6B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 5A' WHERE current_grade = 'Grade 6A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 5B' WHERE current_grade = 'Grade 6B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 5A' WHERE current_class = 'Grade 6A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 5B' WHERE current_class = 'Grade 6B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 5' WHERE grade = 'Grade 6'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 6' WHERE grade = 'Grade 7'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 6A' WHERE grade_and_category = 'Grade 7A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 6B' WHERE grade_and_category = 'Grade 7B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 6A' WHERE current_grade = 'Grade 7A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 6B' WHERE current_grade = 'Grade 7B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 6A' WHERE current_class = 'Grade 7A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 6B' WHERE current_class = 'Grade 7B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 6' WHERE grade = 'Grade 7'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+                SET grade = 'Grade 7' WHERE grade = 'Grade 8'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 7A' WHERE grade_and_category = 'Grade 8A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 7B' WHERE grade_and_category = 'Grade 8B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 7A' WHERE current_grade = 'Grade 8A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 7B' WHERE current_grade = 'Grade 8B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 7A' WHERE current_class = 'Grade 8A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 7B' WHERE current_class = 'Grade 8B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 7' WHERE grade = 'Grade 8'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_payable
+            SET grade = 'Grade 8' WHERE grade = 'Grade 9'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 8A' WHERE grade_and_category = 'Grade 9A'""")
+            c.execute("""UPDATE fees_payable
+            SET grade_and_category = 'Grade 8B' WHERE grade_and_category = 'Grade 9B'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 8A' WHERE current_grade = 'Grade 9A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 8B' WHERE current_grade = 'Grade 9B'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 8A' WHERE current_class = 'Grade 9A'""")
+            c.execute("""UPDATE students
+            SET current_class = 'Grade 8B' WHERE current_class = 'Grade 9B'""")
+            c.execute("""UPDATE students
+            SET grade = 'Grade 8' WHERE grade = 'Grade 9'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 9A' WHERE current_grade = 'Completed A'""")
+            c.execute("""UPDATE fees_paid
+            SET current_grade = 'Grade 9B' WHERE current_grade = 'Completed B'""")
+            c.execute(
+                """INSERT OR IGNORE INTO fees_payable(full_name, registration_number, grade, grade_and_category,
+                        status, balance)
+                    SELECT full_name, registration_number, grade, grade_and_category, status, arrears
+                    FROM completed_students
+                    WHERE completed_students.completion_level = 'c'""")
+            conn.commit()
+            conn.close()
+
+            conn = sqlite3.connect("school.db")
+            c = conn.cursor()
+            c.execute(
+                """DELETE FROM completed_students WHERE completed_students.completion_level = 'c'""")
+            conn.commit()
+            conn.close()
+
+        finally:
+            self.successful_promotion_dialog = MDDialog(
+                title="Successful Demoted Students!",
+                text="All students have been successfully moved to the previous class.",
+                radius=[40, 7, 40, 7],
+                auto_dismiss=False,
+                buttons=[
+                    MDRectangleFlatButton(
+                        text="CLOSE", on_release=self.close_successful_promotion_dialog
+                    ),
+                ],
+            )
+            self.successful_promotion_dialog.open()
+
+    def close_successful_promotion_dialog(self, obj):
+        self.successful_promotion_dialog.dismiss()
+
 
     def logout(self):
         self.empty_class_dialog = MDDialog(

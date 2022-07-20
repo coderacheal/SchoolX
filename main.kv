@@ -494,7 +494,7 @@ WindowManager:
             Rectangle:
                 size: self.size
                 pos: self.pos
-                source: "assets/greenbgjpg"
+                source: "assets/greenbg.jpg"
 
     MDCard:
         size_hint: None, None
@@ -573,7 +573,7 @@ WindowManager:
             Rectangle:
                 size: self.size
                 pos: self.pos
-                source: "assets/greenbg.png"
+                source: "assets/greenbg.jpg"
 
     MDCard:
         size_hint: None, None
@@ -3159,17 +3159,15 @@ WindowManager:
             pos_hint: {"center_x": 0.5}
             on_release: root.manager.current = "differentiated salary"
         MDRoundFlatButton:
-            text: "     PROMOTE STUDENTS    "
+            text: "        PROMOTE STUDENTS       "
             font_size: 30
             pos_hint: {"center_x": 0.5}
             on_release: root.confirmation_of_promotion_dialog()
-            on_release: root.successful_promotion()
         MDRoundFlatButton:
-            text: " REVERSE PROMOTION "
+            text: "  REVERSE PROMOTION  "
             font_size: 30
             pos_hint: {"center_x": 0.5}
             on_release: root.confirmation_of_demotion_dialog()
-            on_release: root.successful_demotion()
         MDRoundFlatButton:
             text: "      SET SALARY      "
             font_size: 30
