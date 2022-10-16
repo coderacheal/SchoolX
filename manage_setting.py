@@ -4,7 +4,7 @@ import exceptions
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton
-from kivymd.uix.picker import MDDatePicker
+from kivymd.uix.pickers import MDDatePicker
 
 
 class Manage(Screen):

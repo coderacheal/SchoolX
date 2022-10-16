@@ -6,7 +6,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton
 from kivy.metrics import dp
 from kivymd.uix.datatables import MDDataTable
-from kivymd.uix.picker import MDDatePicker
+from kivymd.uix.pickers import MDDatePicker
 
 
 class Staff(Screen):
