@@ -3,8 +3,6 @@ import sqlite3
 
 conn = sqlite3.connect("school.db")
 c = conn.cursor()
-
-
 c.execute("""CREATE TABLE if not exists students(
             first_name text,
             surname text,

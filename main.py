@@ -2,10 +2,12 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton
 from kivy.core.window import Window
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivymd.theming import ThemeManager
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.dialog import MDDialog
+from kivy.config import Config
+from matplotlib import pyplot as plt
 import exceptions
 import logins
 import fees
@@ -14,7 +16,7 @@ import students
 import expenditure
 import manage_setting
 import analytics
-import matplotlib.pyplot as plt
+
 
 
 class Home(Screen):
@@ -22,6 +24,8 @@ class Home(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
+            auto_dismiss=False,
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -45,6 +49,7 @@ class Info(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -69,7 +74,6 @@ class WindowManager(ScreenManager):
 
 class SmartTrackerApp(MDApp):
     def build(self):
-        theme_cls = ThemeManager()
         self.theme_cls.primary_palette = "Purple"
         self.theme_cls.theme_style = "Light"
         return Builder.load_file("main.kv")

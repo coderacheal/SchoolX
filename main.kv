@@ -1,6 +1,6 @@
-#:kivy 2.0.0
+#:kivy 2.1.0
 #: import Factory kivy.factory.Factory
-
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
 WindowManager:
     Logo:
     Authorization:
@@ -42,39 +42,42 @@ WindowManager:
     Analytics:
     Figures:
     Graphs:
-    
 
 
-       
+
 <Logo>:
     name: "logo"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    
     MDFillRoundFlatButton:
         text: "Logo"
         font: 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        on_press: root.manager.current = "authorization"
+        on_release: root.transition = FadeTransition(); root.manager.current = "authorization"
         
 
 <Authorization>:
     name: "authorization"
-    MDCard:
-        self: self.size
-        pos: self.pos 
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
-        spacing: 15
+        spacing: 30
 
         MDTopAppBar:
             title: 'Authorization'
@@ -89,7 +92,7 @@ WindowManager:
             width: 250
             font_size: 40
             pos_hint: {"center_x": 0.5}
-            on_release: root.manager.current = "log in" 
+            on_release:root.transition = FadeTransition(); root.manager.current = "log in" 
 
         MDRoundFlatButton:
             id: register new user
@@ -111,7 +114,7 @@ WindowManager:
         
         MDTextButton:
             id: forgot_password
-            text: "forgot password?"
+            text: "Forgot Password?"
             mg_bg_color: 1, 0, 0, 1
             size_hint_x: None
             font_size: 15
@@ -128,20 +131,19 @@ WindowManager:
 
 <Login>:
     name: "log in"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
+    
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 20
 
@@ -196,20 +198,18 @@ WindowManager:
 
 <GreetUser>:
     name: "greet"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 30
          
@@ -234,20 +234,18 @@ WindowManager:
 
 <ForgotPassword>:
     name: "forgot password"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -290,20 +288,18 @@ WindowManager:
 
 <NewPassword>:
     name: "new password"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 15
          
@@ -363,20 +359,18 @@ WindowManager:
 
 <RegisterAccount>:
     name: "register account"
-    MDCard: 
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical" 
         spacing: 5
 
@@ -489,20 +483,18 @@ WindowManager:
     
 <ChangePassword>:
     name: "change password"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical" 
         spacing: 15
 
@@ -568,20 +560,17 @@ WindowManager:
 
 <Home>:
     name: "home"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
-
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 15
 
@@ -643,20 +632,18 @@ WindowManager:
         Widget:
 <Fees>:
     name: "fees"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpeg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 15
          
@@ -730,19 +717,18 @@ WindowManager:
 
 <Paid>:
     name: "paid"
-    BoxLayout:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "650dp"
-        elevation: 30 
+        size: "1300dp", "690dp"
         orientation: "vertical"
         spacing: 10
                 
@@ -813,19 +799,17 @@ WindowManager:
 
 <Owing>:
     name: "owing"
-    BoxLayout:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "650dp"
-        elevation: 30 
+        size: "1300dp", "690dp"
         orientation: "vertical"
         spacing: 10
                 
@@ -897,19 +881,17 @@ WindowManager:
 
 <CompleteClassList>:
     name: "complete class list"
-    BoxLayout:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "650dp"
-        elevation: 30 
+        size: "1300dp", "690dp"
         orientation: "vertical"
         spacing: 10
                 
@@ -980,20 +962,18 @@ WindowManager:
 
 <PaymentPlatform>:
     name: 'payment platform'
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 15
          
@@ -1160,19 +1140,17 @@ WindowManager:
 
 <PaymentHistory>:
     name: "payment history"
-    BoxLayout:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "650dp"
-        elevation: 30 
+        size: "1300dp", "690dp"
         orientation: "vertical"
         spacing: 10
                 
@@ -1254,20 +1232,18 @@ WindowManager:
 
 <Staff>:
     name: "staff"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 18
 
@@ -1330,20 +1306,18 @@ WindowManager:
 
 <RegisterStaffSecurity>:
     name: "register staff security"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -1387,20 +1361,18 @@ WindowManager:
 
 <StaffRegistrationForms>:
     name: "staff registration forms"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 15
          
@@ -1647,20 +1619,18 @@ WindowManager:
 
 <EditStaffSecurity>:
     name: "edit staff security"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -1702,20 +1672,18 @@ WindowManager:
 
 <EditStaffDetails>:
     name: "edit staff details"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -1965,20 +1933,18 @@ WindowManager:
 
 <ViewStaffDetails>:
     name: "view staff details"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -2061,20 +2027,18 @@ WindowManager:
             
 <StudentsInformation>:
     name: "students information"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -2146,20 +2110,18 @@ WindowManager:
 
 <StudentRegistrationForm>:
     name: "student registration form"
-    MDCard: 
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical" 
         spacing: 5
 
@@ -2395,20 +2357,18 @@ WindowManager:
 
 <ViewStudentDetails>:
     name: "view student details"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30
+        size: "1199dp", "690dp"
         orientation: "vertical" 
         spacing: 25
 
@@ -2490,19 +2450,17 @@ WindowManager:
 
 <EditStudentsDetails>:
     name: "edit student details"
-    MDCard: 
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical" 
         spacing: 25
 
@@ -2804,19 +2762,17 @@ WindowManager:
 
 <CompletedStudents>:
     name: "completed students"
-    MDCard: 
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical" 
         spacing: 25
 
@@ -2898,19 +2854,17 @@ WindowManager:
            
 <ExitedStudents>:
     name: "exited students"
-    MDCard: 
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical" 
         spacing: 25
 
@@ -2993,20 +2947,17 @@ WindowManager:
 
 <Info>:
     name: "info"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
-
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -3025,20 +2976,18 @@ WindowManager:
 
 <Manage>:
     name: "manage"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -3068,22 +3017,23 @@ WindowManager:
         Widget:
         Widget:
         Widget:
+
+
 <SetSecuritykey>: 
     name: "set security key"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
+         
         orientation: "vertical"
         spacing: 25
          
@@ -3126,20 +3076,18 @@ WindowManager:
         
 <Set>:
     name: 'set'
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 15
          
@@ -3196,20 +3144,18 @@ WindowManager:
 
 <DifferentiatedSalary>:
     name: "differentiated salary"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -3422,20 +3368,18 @@ WindowManager:
 
 <SetSalaryForm>:
     name: "set salary form"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -3640,20 +3584,18 @@ WindowManager:
 
 <SetTerm>:
     name: "set term"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 20
          
@@ -3743,19 +3685,17 @@ WindowManager:
 
 <FeesBreakdown>:
     name: "fees breakdown"
-    BoxLayout:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 10
                 
@@ -4019,20 +3959,18 @@ WindowManager:
 
 <Analytics>: 
     name: "analytics"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -4070,20 +4008,18 @@ WindowManager:
            
 <Figures>: 
     name: "figures"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -4169,20 +4105,17 @@ WindowManager:
 
 <Graphs>: 
     name: "graphs"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
-
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 25
          
@@ -4271,20 +4204,18 @@ WindowManager:
             Widget:      
 <Expenditure>:
     name: "expenditure"
-    MDCard:
-        canvas.before:
-            Rectangle:
-                size: self.size
-                pos: self.pos
-                source: "assets/greenbg.jpg"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1199dp", "650dp"
-        elevation: 30 
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 20
          
@@ -4366,7 +4297,6 @@ WindowManager:
                             size_hint_x: None
                             helper_text: "No commas necessary"
                             helper_text_mode: "on_focus"
-                            # required: True
                             input_filter: "float"
                             icon_right: "money"
                             width: 300
@@ -4379,7 +4309,6 @@ WindowManager:
                             size_hint_x: None
                             helper_text: "Brief description of expense"
                             helper_text_mode: "on_focus"
-                            # required: True
                             icon_right: "number"
                             width: 300
                             font_size: 20
@@ -4391,7 +4320,6 @@ WindowManager:
                             size_hint_x: None
                             helper_text: "Please enter authority's fullname"
                             helper_text_mode: "on_focus"
-                            # required: True
                             icon_right: "male-female"
                             width: 300
                             font_size: 20
@@ -4402,7 +4330,6 @@ WindowManager:
                             size_hint_x: None
                             helper_text: "Name of first signitory"
                             helper_text_mode: "on_focus"
-                            # required: True
                             icon_right: "male-female"
                             width: 300
                             font_size: 20
@@ -4448,7 +4375,8 @@ WindowManager:
 
 <CustomSpinnerOptions@SpinnerOption>:
     background_normal: ""
-    background_color: 3/255, 78/255, 255/255, 1
+    background_color: 207/255, 201/255, 203/255, 1
+    foreground_color: 1,1,1,1
     on_release: self.background_color= 0,.6,0,1
     foreground_color: 0,0,0,1
 
