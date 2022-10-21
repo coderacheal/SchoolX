@@ -1,6 +1,9 @@
 #:kivy 2.1.0
 #: import Factory kivy.factory.Factory
-#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#: import TransitionBase kivy.uix.screenmanager.TransitionBase
+# : import FadeTransition kivy.uix.screenmanager.TransitionBase
+
+
 WindowManager:
     Logo:
     Authorization:
@@ -47,27 +50,31 @@ WindowManager:
 
 <Logo>:
     name: "logo"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
-    
-    MDFillRoundFlatButton:
+    MDRoundFlatButton:
         text: "Logo"
         font: 20
+        size: self.size
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        on_release: root.transition = FadeTransition(); root.manager.current = "authorization"
+        on_release: root.manager.current = "authorization"
+        # on_release: root.manager.transition = TransitionBase()
         
+                
 
 <Authorization>:
     name: "authorization"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
 
     MDCard:
@@ -92,7 +99,8 @@ WindowManager:
             width: 250
             font_size: 40
             pos_hint: {"center_x": 0.5}
-            on_release:root.transition = FadeTransition(); root.manager.current = "log in" 
+            on_release: root.manager.current = "log in" 
+            on_release: root.manager.transition = TransitionBase()
 
         MDRoundFlatButton:
             id: register new user
@@ -131,11 +139,12 @@ WindowManager:
 
 <Login>:
     name: "log in"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     
     MDCard:
@@ -198,11 +207,12 @@ WindowManager:
 
 <GreetUser>:
     name: "greet"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
@@ -234,11 +244,12 @@ WindowManager:
 
 <ForgotPassword>:
     name: "forgot password"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
@@ -288,11 +299,12 @@ WindowManager:
 
 <NewPassword>:
     name: "new password"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
@@ -359,11 +371,12 @@ WindowManager:
 
 <RegisterAccount>:
     name: "register account"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
@@ -483,11 +496,12 @@ WindowManager:
     
 <ChangePassword>:
     name: "change password"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
@@ -560,11 +574,12 @@ WindowManager:
 
 <Home>:
     name: "home"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
     MDCard:
         size_hint: None, None
         radius: 20
@@ -632,11 +647,12 @@ WindowManager:
         Widget:
 <Fees>:
     name: "fees"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
@@ -717,18 +733,19 @@ WindowManager:
 
 <Paid>:
     name: "paid"
-    canvas.before:
-        Rectangle:
-            size: self.size
-            pos: self.pos
-            source: "assets/hi.jpg"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
 
     MDCard:
         size_hint: None, None
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "690dp"
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 10
                 
@@ -809,7 +826,7 @@ WindowManager:
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "690dp"
+        size: "1199dp", "690dp"
         orientation: "vertical"
         spacing: 10
                 
@@ -891,9 +908,9 @@ WindowManager:
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "690dp"
+        size: "1199dp", "690dp"
         orientation: "vertical"
-        spacing: 10
+        spacing: 15
                 
         MDTopAppBar:
             title: 'Complete Class List'
@@ -996,7 +1013,7 @@ WindowManager:
                 orientation:'vertical'
                 size_hint_y: None
                 pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-                size: root.width, 480
+                size: root.width, 550
                 spacing: 7
 
                 
@@ -1150,9 +1167,9 @@ WindowManager:
         radius: 20
         pos: 80, 20
         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-        size: "1300dp", "690dp"
+        size: "1199dp", "690dp"
         orientation: "vertical"
-        spacing: 10
+        spacing: 15
                 
         MDTopAppBar:
             title: 'Payment History'
@@ -1395,7 +1412,7 @@ WindowManager:
                 orientation:'vertical'
                 size_hint_y: None
                 pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-                size: 500, 910
+                size: 500, 1010
                 spacing: 10
 
                 MDLabel:
@@ -1694,7 +1711,7 @@ WindowManager:
 
         BoxLayout:
             orientation:'horizontal'
-            size: 1200, 450
+            size: 1200, 550
             pos_hint: {"center_x": 0.5, "center_y": 0.5} 
 
             BoxLayout:
@@ -1778,7 +1795,7 @@ WindowManager:
                         orientation:'vertical'
                         size_hint_y: None
                         pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-                        size: 500, 700
+                        size: 500, 850
                         spacing: 10
 
                         MDLabel:
@@ -1826,8 +1843,7 @@ WindowManager:
                             values: ["Male", "Female"]
                             on_text: root.spinner_clicked(staff_gender_spinner.text)
                             on_text: self.background_color= 0,.6,0,1
-                        Widget:
-                        Widget:
+        
                         BoxLayout:
                             orientation: "horizontal"
                             pos_hint: {"center_x": 0.5, "center_y": 0.5}
@@ -2144,7 +2160,7 @@ WindowManager:
                 orientation:'vertical'
                 size_hint_y: None
                 pos_hint: {"center_x": 0.5, "center_y": 0.5} 
-                size: root.width, 950
+                size: root.width, 1065
                 spacing: 7
 
                 
@@ -4404,10 +4420,9 @@ WindowManager:
     dropdown_cls: Factory.CustomDropdown
     option_cls: Factory.CustomSpinnerOptions
 
-
-        
-
-        
-        
-
-        
+# <MDFloatLayout>
+#     md_bg_color = 1,1,1,1
+#     MDRoundFlatButton:
+#         canvas.before:
+#             Color:
+#                 rgba: 1,1,1,1      

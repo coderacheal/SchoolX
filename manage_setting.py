@@ -12,6 +12,7 @@ class Manage(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout

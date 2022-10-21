@@ -14,6 +14,7 @@ class Staff(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -29,7 +30,7 @@ class Staff(Screen):
 
     def close_dialog_and_logout(self, obj):
         self.empty_class_dialog.dismiss()
-        self.manager.current = "log in"
+        self.manager.current = "authorization"
 
 
 class RegisterStaffSecurity(Screen):
@@ -37,6 +38,7 @@ class RegisterStaffSecurity(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -52,7 +54,7 @@ class RegisterStaffSecurity(Screen):
 
     def close_dialog_and_logout(self, obj):
         self.empty_class_dialog.dismiss()
-        self.manager.current = "log in"
+        self.manager.current = "authorization"
 
 
 class StaffRegistrationForms(Screen):
@@ -202,7 +204,7 @@ class StaffRegistrationForms(Screen):
             conn.commit()
             self.successful_staff_regis_dialog = MDDialog(
                 title="Success!",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 text="Staff member has been successfully entered on to the payroll",
                 auto_dismiss=False,
                 buttons=[
@@ -249,6 +251,7 @@ class StaffRegistrationForms(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -264,7 +267,7 @@ class StaffRegistrationForms(Screen):
 
     def close_dialog_and_logout(self, obj):
         self.empty_class_dialog.dismiss()
-        self.manager.current = "log in"
+        self.manager.current = "authorization"
 
 
 class EditStaffSecurity(Screen):
@@ -272,6 +275,7 @@ class EditStaffSecurity(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -287,7 +291,7 @@ class EditStaffSecurity(Screen):
 
     def close_dialog_and_logout(self, obj):
         self.empty_class_dialog.dismiss()
-        self.manager.current = "log in"
+        self.manager.current = "authorization"
 
 
 class EditStaffDetails(Screen):
@@ -321,7 +325,7 @@ class EditStaffDetails(Screen):
             staff.staff_type = ? AND staff.staff_full_name = ? """, (self.ids.select_staff_type_spinner.text, self.ids.select_staff_name_spinner.text,))]
         dob = [r[0] for r in c.execute("""SELECT  date_of_birth FROM staff WHERE
             staff.staff_type = ? AND staff.staff_full_name = ? """, (self.ids.select_staff_type_spinner.text, self.ids.select_staff_name_spinner.text,))]
-        staff_qualification = [r[0] for r in c.execute("""SELECT  qualification FROM staff WHERE
+        staff_qualification = [r[0] for r in c.execute("""SELECT  certification FROM staff WHERE
             staff.staff_type= ? AND staff.staff_full_name= ? """, (self.ids.select_staff_type_spinner.text, self.ids.select_staff_name_spinner.text,))]
         school = [r[0] for r in c.execute("""SELECT  name_of_school FROM staff WHERE
             staff.staff_type = ? AND staff.staff_full_name = ? """, (self.ids.select_staff_type_spinner.text, self.ids.select_staff_name_spinner.text,))]
@@ -367,7 +371,7 @@ class EditStaffDetails(Screen):
                     staff_full_name=?,
                     staff_gender=?,
                     date_of_birth=?,
-                    qualification=?,
+                    certification=?,
                     name_of_school=?,
                     position_assigned=?,
                     staff_phone_number=?,
@@ -436,7 +440,7 @@ class EditStaffDetails(Screen):
 
     def close_dialog_and_logout(self, obj):
         self.empty_class_dialog.dismiss()
-        self.manager.current = "log in"
+        self.manager.current = "authorization"
 
 
 class ViewStaffDetails(Screen):
@@ -566,6 +570,7 @@ class ViewStaffDetails(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -581,4 +586,4 @@ class ViewStaffDetails(Screen):
 
     def close_dialog_and_logout(self, obj):
         self.empty_class_dialog.dismiss()
-        self.manager.current = "log in"
+        self.manager.current = "authorization"

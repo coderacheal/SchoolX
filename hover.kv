@@ -1,0 +1,16 @@
+MDFloatLayout:
+    HoverButton:
+        text: 'Hover Me'
+        # font_size: '18sp'
+        size_hint: None, None
+        pos_hint:{"center_x": .5, "center_y":.5}
+        background_color: 1,1,1,0
+        color: 1,1,1,1
+        canvas.before:
+        # on_release: self.animate_it()
+        # on_enter: self. co
+            Color:
+                rgb:self.background
+            RoundedRectangle:
+                pos: self.pos
+                radius: [8]

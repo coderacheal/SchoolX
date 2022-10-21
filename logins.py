@@ -1,14 +1,30 @@
 import kivy
+from kivy.animation import Animation
 import sqlite3
 import datetime
+from kivymd.uix.behaviors import HoverBehavior
+from matplotlib.widgets import Button
+
 import exceptions
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDRectangleFlatButton
-
+from kivymd.uix.button import MDRectangleFlatButton, MDRoundFlatButton
 
 class Logo(Screen):
     pass
+
+class AnimatedButtons(Button, HoverBehavior):
+
+    def on_enter(self):
+        self.background = (251/255, 104/255, 23/255, 1)
+        # Animation().start(self, MDRoundFlatButton)
+
+    def on_leave(self):
+        self.background = (71/255, 104/255, 237/255, 1)
+
+    # def animate_it(self,MDRoundFlatButton, *args):
+    #     animate = Animation(d=3, size=self.size_hint_x = 1)
+    #     animate.start(MDRoundFlatButton)
 
 
 class Authorization(Screen):
@@ -122,7 +138,7 @@ class RegisterAccount(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty Fields!",
                 text="You have to fill in all the blanks",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -135,7 +151,7 @@ class RegisterAccount(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Password Error!",
                 text="Your passwords do not match",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -148,6 +164,7 @@ class RegisterAccount(Screen):
             self.empty_class_dialog = MDDialog(
                 title="ID Error!",
                 text="Staff Id already exist in the Database",
+                radius=[40, 7, 40, 7],
                 buttons=[
                     MDRectangleFlatButton(
                         text="close", on_release=self.close_empty_class_dialog
@@ -160,7 +177,7 @@ class RegisterAccount(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Congratulations!",
                 text="You have successfully registerd a new account!",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -209,7 +226,7 @@ class ChangePassword(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Password Error!",
                 text="Your passwords do not match",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -222,7 +239,7 @@ class ChangePassword(Screen):
             self.empty_class_dialog = MDDialog(
                 title="ID or Password Error!",
                 text="Staff Id or Password does not exist in the Database",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -235,7 +252,7 @@ class ChangePassword(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Congratulations!",
                 text="You have successfully changed your password!",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(

@@ -17,6 +17,7 @@ class Analytics(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -428,6 +429,7 @@ class Figures(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -889,7 +891,7 @@ class Graphs(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="No Data Exits",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -1660,7 +1662,7 @@ class Graphs(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="No Data Exits",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -1691,6 +1693,7 @@ class Graphs(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),

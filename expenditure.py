@@ -64,7 +64,7 @@ class Expenditure(Screen):
             self.authorization_error_dialog = MDDialog(
                 title="Authorization required!",
                 text="The 'Authorised by' field cannot be blank",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -77,7 +77,7 @@ class Expenditure(Screen):
         except exceptions.SignitoryError:
             self.authorization_error_dialog = MDDialog(
                 title="Signitory required!",
-                radius=[30, 7, 30, 7],
+                radius=[40, 7, 40, 7],
                 text="At least one signitory is required",
                 auto_dismiss=False,
                 buttons=[
@@ -91,7 +91,7 @@ class Expenditure(Screen):
         except exceptions.EmptyFieldError:
             self.no_purpose_dialog = MDDialog(
                 title="Purpose required?",
-                radius=[30, 7, 30, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 text="You have to select a purpose for expenditure",
                 buttons=[
@@ -105,7 +105,7 @@ class Expenditure(Screen):
         except exceptions.NoAmountError:
             self.no_amt_dialog = MDDialog(
                 title="Bad Transaction Alert!",
-                radius=[20, 7, 20, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 text="Amount cannot be less than or equal to 0",
                 buttons=[
@@ -141,7 +141,7 @@ class Expenditure(Screen):
     def confirm_expense(self):
         self.successful_transaction_dialog = MDDialog(
             title="Confirmation?",
-            radius=[30, 7, 30, 7],
+            radius=[40, 7, 40, 7],
             text=f"Are you sure you want to file {self.ids.purpose_of_expenditure_spinner.text} expense of GHC{self.ids.expenditure_amt.text}?",
             buttons=[
 
@@ -161,6 +161,7 @@ class Expenditure(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),

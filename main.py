@@ -1,13 +1,17 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton
+from kivy.animation import Animation
+from kivymd.uix.button import MDRoundFlatButton, MDRectangleFlatButton, MDFlatButton
+from kivymd.uix.behaviors import HoverBehavior
 from kivy.core.window import Window
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
-from kivymd.theming import ThemeManager
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivymd.theming import ThemableBehavior
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.dialog import MDDialog
 from kivy.config import Config
 from matplotlib import pyplot as plt
+# from list import ListProperty
+from kivy.core.text import LabelBase
 import exceptions
 import logins
 import fees
@@ -17,6 +21,20 @@ import expenditure
 import manage_setting
 import analytics
 
+# Window.size = (1920, 1000)
+# Window.pos = ('center')
+# class HoverItem(MDRoundFlatButton,  HoverBehavior):
+#     background = list((71/255, 104/255, 237/255, 1))
+#     def on_start(self):
+#         # Animation(size_hint=(.6, .1), d=0.3).start(self)
+#         Animation(d=2, size_hint=(.6, .1))
+#         # self.background = (251/255, 104/255, 23/255, 1) 
+
+#     def on_complete(self):
+#         Animation(d=2, size_hint=(.5, .9))
+
+#         # Animation(size_hint=(.5, .9), d=0.3).start(self)
+#         # self.background = (71/255, 104/255, 237/255, 1)
 
 
 class Home(Screen):
@@ -68,11 +86,12 @@ class Info(Screen):
         self.manager.current = "log in"
 
 
+
 class WindowManager(ScreenManager):
     pass
 
 
-class SmartTrackerApp(MDApp):
+class SmartTracker(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Purple"
         self.theme_cls.theme_style = "Light"
@@ -80,4 +99,4 @@ class SmartTrackerApp(MDApp):
 
 
 if __name__ == "__main__":
-    SmartTrackerApp().run()
+    SmartTracker().run()

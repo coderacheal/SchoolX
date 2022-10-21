@@ -14,6 +14,7 @@ class Fees(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -79,7 +80,7 @@ class Paid(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="Please select a class to continue",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -96,6 +97,7 @@ class Paid(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -161,7 +163,7 @@ class Owing(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="Please select a class to continue",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -178,6 +180,7 @@ class Owing(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -243,7 +246,7 @@ class CompleteClassList(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="Please select a class to continue",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -260,6 +263,7 @@ class CompleteClassList(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -283,6 +287,7 @@ class ExitedStudents(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -335,7 +340,7 @@ class PaymentPlatform(Screen):
         self.transaction_confirmation_dialog = MDDialog(
             title="Confirmation Alert!",
             text=f"Are you sure you want to make a transaction of GHC{self.ids.amt.text} for {self.ids.students_full_name_spinner.text}?",
-            radius=[25, 7, 25, 7],
+            radius=[40, 7, 40, 7],
             auto_dismiss=False,
             buttons=[
                 MDRectangleFlatButton(
@@ -426,7 +431,7 @@ class PaymentPlatform(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="No option as been selected for either class or name of student",
-                radius=[30, 7, 30, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -440,7 +445,7 @@ class PaymentPlatform(Screen):
                 title="Important!",
                 text="Select payee type and transaction mode to transact",
                 auto_dismiss=False,
-                radius=[30, 7, 30, 7],
+                radius=[40, 7, 40, 7],
                 buttons=[
                     MDRectangleFlatButton(
                         text="OK", on_release=self.close_empty_class_dialog
@@ -453,7 +458,7 @@ class PaymentPlatform(Screen):
                 title="Bad Transaction Alert!",
                 text="Amount cannot be less than or equal to 0",
                 auto_dismiss=False,
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 buttons=[
                     MDRectangleFlatButton(
                         text="OK", on_release=self.close_empty_class_dialog
@@ -465,7 +470,7 @@ class PaymentPlatform(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="Please provide name of payee and receipt number to transact",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -517,6 +522,7 @@ class PaymentPlatform(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
@@ -600,7 +606,7 @@ class PaymentHistory(Screen):
             self.empty_class_dialog = MDDialog(
                 title="Empty!",
                 text="Please select a class to continue",
-                radius=[25, 7, 25, 7],
+                radius=[40, 7, 40, 7],
                 auto_dismiss=False,
                 buttons=[
                     MDRectangleFlatButton(
@@ -617,6 +623,7 @@ class PaymentHistory(Screen):
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
+            radius=[40, 7, 40, 7],
             buttons=[
                 MDRectangleFlatButton(
                     text="YES", on_release=self.close_dialog_and_logout),
