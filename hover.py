@@ -7,7 +7,7 @@ from kivy.uix.button import Button, ButtonBehavior
 from kivymd.uix.button import MDRoundFlatButton
 from kivy.properties import ListProperty
 from kivy.animation import Animation 
-Window.size =(300,580)
+Window.size =(300,580) 
 
 
 class HoverButton(Button, HoverBehavior):
