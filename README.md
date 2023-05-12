@@ -2,12 +2,8 @@
 <a name="readme-top"></a>
 
 
-<div align="center">
-  <br/>
+![image](https://github.com/coderacheal/SmartTracker-School/assets/97846040/40034e28-5381-4c42-a2f9-707c096fd084)
 
-  <h3><b>Catalog.</b></h3>
-
-</div>
 
 
 # 📗 Table of Contents
