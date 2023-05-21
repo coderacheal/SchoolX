@@ -100,7 +100,7 @@ Clone this repository to your desired folder:
  Example commands:
 
 ```sh
-  git clone https://github.com/coderacheal/SmartTracker-School.git
+  git clone https://github.com/coderacheal/Smart-School.git
   
   cd SmartTracker - School
 ```
