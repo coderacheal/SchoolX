@@ -1,4 +1,4 @@
-# SmartTracker-School
+# Smart School
 <a name="readme-top"></a>
 
 
@@ -8,9 +8,9 @@
 
 # 📗 Table of Contents
 
-- [SmartTracker-School](#catalog)
+- [Smart School](#catalog)
 - [📗 Table of Contents](#-table-of-contents)
-- [📖 \[SmartTracker-School\] ](#-catalog-)
+- [📖 \[Smart School\] ](#-catalog-)
     - [Tech Stack ](#tech-stack-)
     - [Key Features ](#key-features-)
   - [💻 Getting Started ](#-getting-started-)
@@ -25,9 +25,10 @@
   - [🙏 Acknowledgments  --\>](#-acknowledgments----)
   - [📝 License ](#-license-)
 
-# 📖 SmartTracker <a name="about-project"></a>
-**SmartTracker - School** is a desktop application for schools to track their income and revenue.It also includes a database for storing data locally and visualization it. The GUI was built on KIVY with Material design. With over 5,000 lines of python code and over 4,000 lines of KIVY Material Design, Smart School is still in the testing phase and open to contribution. The script also uses sqlite3 integration. uses OOP to create a catalog of things I own
-<!-- ## 🛠 Built With <a name="built-with"></a> -->
+# 📖 Smart School <a name="about-project"></a>
+**Smart School** is a desktop application for schools to track their income and revenue. It also includes a database for storing data locally and visualization it. The GUI was built on KIVY with Material design. 
+
+<!-- ## 🛠 Built With <a name="built-with"></a> --> 
 
 ### Tech Stack <a name="tech-stack"></a>
 
@@ -45,9 +46,23 @@
 </ul>
 </details> 
 
+<details>
+  <summary>Database</summary>
+<ul>
+  <li><a href="https://www.sqlite.org/index.html">SQLite</a></li>
+</ul>
+</details>
+
+<details>
+  <summary>Visualizations</summary>
+<ul>
+  <li><a href="https://matplotlib.org/l">Matplotlib</a></li>
+</ul>
+</details>
+
+
 
 ### Key Features <a name="key-features"></a>
-
 
 - **Register students into a class**
 - **Register teachers with their salary grades**
@@ -74,26 +89,28 @@ To get a local copy up and running, follow these steps.
 
 ### Setup
 
-Clone this repository to your desired folder:
-https://github.com/coderacheal/Catalog.git
- Example commands:
+- Make sure you have set up a virtual environemnt for this project
+- Install the appropriate versions of the packages used in this project
 
-```sh
-  cd SmartTracker - School
-```
 
 ### Install
 
-Install this project with
+Clone this repository to your desired folder:
 
-` cd my-project
-`
+ Example commands:
+
+```sh
+  git clone https://github.com/coderacheal/SmartTracker-School.git
+  
+  cd SmartTracker - School
+```
 
 ### Usage
 
 - Run `python main.py `
 
-## 👥 Author <a name="authors"></a>
+
+## 👥 Author <a name="author"></a>
 
 👤 **Racheal Appiah-kubi**
 
@@ -126,7 +143,7 @@ If you like this project please give it a start and share it with your friends.
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a> -->
 
-I would like to appreciate [Microverse](https://www.microverse.org/) for providing the resources and the platform for us to be a Professional full-stack developer
+I would like to appreciate the python community - those that came before us and paved the way
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
