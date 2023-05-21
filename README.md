@@ -42,7 +42,7 @@
 <details>
   <summary>GUI</summary>
 <ul>
-  <li><a href="https://kivymd.readthedocs.io/en/1.1.1/">KIvyMD</a></li>
+  <li><a href="https://kivymd.readthedocs.io/en/1.1.1/">KivyMD</a></li>
 </ul>
 </details> 
 
@@ -89,12 +89,6 @@ To get a local copy up and running, follow these steps.
 
 ### Setup
 
-- Make sure you have set up a virtual environemnt for this project
-- Install the appropriate versions of the packages used in this project
-
-
-### Install
-
 Clone this repository to your desired folder:
 
  Example commands:
@@ -102,12 +96,24 @@ Clone this repository to your desired folder:
 ```sh
   git clone https://github.com/coderacheal/Smart-School.git
   
-  cd SmartTracker - School
+  cd Smart-School
 ```
+
+
+### Install
+- Make sure you have set up a virtual environemnt for this project
+- Install the appropriate versions of the packages used in this project from the `requirements.txt` file
+
+Run
+    `
+    pip install -r requirements.txt
+    `
+
 
 ### Usage
 
-- Run `python main.py `
+- Run `python main.py ` for the app to start
+- Create a user and begin interacting with the app
 
 
 ## 👥 Author <a name="author"></a>
