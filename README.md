@@ -8,9 +8,9 @@
 
 # 📗 Table of Contents
 
-- [Catalog](#catalog)
+- [SmartTracker-School](#catalog)
 - [📗 Table of Contents](#-table-of-contents)
-- [📖 \[Catalog\] ](#-catalog-)
+- [📖 \[SmartTracker-School\] ](#-catalog-)
     - [Tech Stack ](#tech-stack-)
     - [Key Features ](#key-features-)
   - [💻 Getting Started ](#-getting-started-)
@@ -18,31 +18,32 @@
     - [Setup](#setup)
     - [Install](#install)
     - [Usage](#usage)
-  - [👥 Authors ](#-authors-)
+  - [👥 Authors ](#-author-)
   - [🔭 Future Features ](#-future-features-)
   - [🤝 Contributing ](#-contributing-)
   - [⭐️ Show your support ](#️-show-your-support-)
   - [🙏 Acknowledgments  --\>](#-acknowledgments----)
   - [📝 License ](#-license-)
 
-# 📖 [Catalog] <a name="about-project"></a>
-**[Catalog]** A desktop application for schools to track their income and revenue.  
-It also includes a database for storing data locally and visualization it.  
-The GUI was built on KIVY with Material design. With over 5,000 lines of python code and over 4,000 lines of KIVY Material Design, Smart School is still in the
-testing phase and open to contribution.
-The script also uses sqlite3 integration.
-uses OOP to create a catalog of things I own
+# 📖 SmartTracker <a name="about-project"></a>
+**[SmartTracker]** is adesktop application for schools to track their income and revenue.It also includes a database for storing data locally and visualization it. The GUI was built on KIVY with Material design. With over 5,000 lines of python code and over 4,000 lines of KIVY Material Design, Smart School is still in the testing phase and open to contribution. The script also uses sqlite3 integration. uses OOP to create a catalog of things I own
 <!-- ## 🛠 Built With <a name="built-with"></a> -->
 
 ### Tech Stack <a name="tech-stack"></a>
 
-<!-- <details>
-  <summary>Client</summary> -->
+<details>
+  <summary>Backend</summary>
 <ul>
-  <li><a href="https://www.ruby-lang.org/en/">RUBY</a></li>
+  <li><a href="https://www.python.org/download/releases/3.0/">Python</a></li>
 </ul>
-<!-- </details> -->
+</details> 
 
+<details>
+  <summary>GUI</summary>
+<ul>
+  <li><a href="https://www.python.org/download/releases/3.0/">KIvyMD</a></li>
+</ul>
+</details> 
 
 
 ### Key Features <a name="key-features"></a>
@@ -71,7 +72,7 @@ https://github.com/coderacheal/Catalog.git
  Example commands:
 
 ```sh
-  cd Catalog
+  cd SmartTracker - School
 ```
 
 ### Install
@@ -79,39 +80,25 @@ https://github.com/coderacheal/Catalog.git
 Install this project with
 
 ` cd my-project
-  - Run bundle install
+`
 
 ### Usage
 
-- Run `Ruby + filename`.
+- Run `python main.py `
 
-Video Presentation
-[Video Link here](https://drive.google.com/file/d/1TNaMKYGhFpPJW8yeP2DaY7UNCLG5AKDw/view?usp=sharing)
-
-## 👥 Authors <a name="authors"></a>
+## 👥 Author <a name="authors"></a>
 
 👤 **Racheal Appiah-kubi**
 
 - GitHub: [@coderacheal](https://github.com/coderacheal)
 - LinkedIn: [racheal-appiah-kubi](https://www.linkedin.com/in/racheal-appiah-kubi/)
 
-👤 **Bigizi Nduwayo Crispin**
-
-- GitHub: [@githubhandle](https://github.com/bigizi)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/bigizi)
-  
-👤 **HABASM**
-
-- GitHub: [@githubhandle](https://github.com/habasm)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/habasm)
-
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **[Add a graphical user interface]**
+- [ ] **Make app available online as a web app**
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
