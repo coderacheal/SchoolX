@@ -41,7 +41,7 @@
 <details>
   <summary>GUI</summary>
 <ul>
-  <li><a href="https://www.python.org/download/releases/3.0/">KIvyMD</a></li>
+  <li><a href="https://kivymd.readthedocs.io/en/1.1.1/">KIvyMD</a></li>
 </ul>
 </details> 
 
@@ -49,7 +49,14 @@
 ### Key Features <a name="key-features"></a>
 
 
-- **[Object Oriented Programming]**
+- **Register students into a class**
+- **Register teachers with their salary grades**
+- **Configure the semester**
+- **Record expenses made and who made authorised them**
+- **Record fees paid and by whom**
+- **Show record of learners who have made full or part payment of fees**
+- **Keep data on alumni**
+- **Show visualization of the data on expenses and income**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
