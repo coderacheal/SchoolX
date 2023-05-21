@@ -8,12 +8,13 @@ from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton
 from kivy.metrics import dp
 from kivymd.uix.datatables import MDDataTable
 # from kivymd.uix.picker import MDDatePicker
-#import numpy as np
+import numpy as np
 import matplotlib.pyplot as plt
 
 
 class Analytics(Screen):
     def logout(self):
+      
         self.empty_class_dialog = MDDialog(
             title="Logging out...",
             text="Are you sure you want to log out?",
@@ -27,6 +28,7 @@ class Analytics(Screen):
             ],
         )
         self.empty_class_dialog.open()
+        
 
     def close_dialog(self, obj):
         self.empty_class_dialog.dismiss()
@@ -38,6 +40,7 @@ class Analytics(Screen):
 
 class Figures(Screen):
     table = None
+    # girl = name
     conn = sqlite3.connect("school.db")
     c = conn.cursor()
     values = [r[0]

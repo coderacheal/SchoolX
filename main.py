@@ -10,16 +10,17 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.dialog import MDDialog
 from kivy.config import Config
 from matplotlib import pyplot as plt
-# from list import ListProperty
 from kivy.core.text import LabelBase
 import exceptions
 import logins
-import fees
+# import fees
 import staff
-import students
-import expenditure
+from students import students 
+# import expenditure
 import manage_setting
 import analytics
+import payments
+from payments import fees, expenditure
 
 # Window.size = (1920, 1000)
 # Window.pos = ('center')
