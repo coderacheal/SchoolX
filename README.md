@@ -26,7 +26,7 @@
   - [📝 License ](#-license-)
 
 # 📖 SmartTracker <a name="about-project"></a>
-**[SmartTracker]** is adesktop application for schools to track their income and revenue.It also includes a database for storing data locally and visualization it. The GUI was built on KIVY with Material design. With over 5,000 lines of python code and over 4,000 lines of KIVY Material Design, Smart School is still in the testing phase and open to contribution. The script also uses sqlite3 integration. uses OOP to create a catalog of things I own
+**SmartTracker - School** is a desktop application for schools to track their income and revenue.It also includes a database for storing data locally and visualization it. The GUI was built on KIVY with Material design. With over 5,000 lines of python code and over 4,000 lines of KIVY Material Design, Smart School is still in the testing phase and open to contribution. The script also uses sqlite3 integration. uses OOP to create a catalog of things I own
 <!-- ## 🛠 Built With <a name="built-with"></a> -->
 
 ### Tech Stack <a name="tech-stack"></a>
