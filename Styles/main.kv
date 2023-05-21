@@ -1,0 +1,4425 @@
+#: kivy 2.1.0
+#: import Factory kivy.factory.Factory
+#: import TransitionBase kivy.uix.screenmanager.TransitionBase
+# : import FadeTransition kivy.uix.screenmanager.TransitionBase
+
+
+WindowManager:
+    Logo:
+    Authorization:
+    LogIn:
+    GreetUser:
+    ForgotPassword:
+    NewPassword:
+    RegisterAccount:
+    ChangePassword:
+    Home:
+    Fees:
+    Paid:
+    Owing:
+    CompleteClassList:
+    PaymentHistory:
+    PaymentPlatform:
+    Staff:
+    RegisterStaffSecurity:
+    StaffRegistrationForms:
+    EditStaffSecurity:
+    EditStaffDetails:
+    ViewStaffDetails:
+    Expenditure:
+    StudentsInformation:
+    StudentRegistrationForm:
+    ViewStudentDetails:
+    EditStudentsDetails:
+    CompletedStudents:
+    ExitedStudents:
+    Info:
+    Manage:
+    Set:
+    SetSecuritykey:
+    SetTerm:
+    SetFeesClassSelection:
+    FeesBreakdown:
+    SetSalaryForm:
+    DifferentiatedSalary:
+    Analytics:
+    Figures:
+    Graphs:
+
+<Logo>:
+    name: "logo"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDRoundFlatButton:
+        text: "Logo"
+        font: 20
+        size: self.size
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        on_release: root.manager.current = "authorization"
+        on_release: root.manager.transition = TransitionBase()
+               
+
+<Authorization>:
+    name: "authorization"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 30
+
+        MDTopAppBar:
+            title: 'Authorization'
+
+        MDLabel:
+            text: ""
+
+        MDRoundFlatButton:
+            id: login
+            text: "              LOG IN                 "
+            size_hint_x: None
+            width: 250
+            font_size: 40
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "log in" 
+            on_release: root.manager.transition = TransitionBase()
+
+        MDRoundFlatButton:
+            id: register new user
+            text: "   REGISTER NEW USER   "
+            size_hint_x: None
+            width: 250
+            font_size: 40
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "register account"
+        
+        MDRoundFlatButton:
+            id: student_and_parent_info
+            text: "   CHANGE PASSWORD   "
+            size_hint_x: None
+            width: 250
+            font_size: 40
+            pos_hint: {"center_x": 0.5} 
+            on_release: root.manager.current = "change password"
+        
+        MDTextButton:
+            id: forgot_password
+            text: "Forgot Password?"
+            mg_bg_color: 1, 0, 0, 1
+            size_hint_x: None
+            font_size: 15
+            theme_text_color: "Custom"
+            text_color: 0, 0, 1, 1
+            pos_hint: {"center_x": 0.5}
+            on_press: root.manager.current = "forgot password"
+
+        Widget:
+            size_hint_y: None
+            height:200
+
+
+
+<Login>:
+    name: "log in"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 20
+
+        MDTopAppBar:
+            title: 'Log in'
+            
+        MDLabel:
+            text: "WELCOME!"
+            font_size: 40
+            size_hint_y: None
+            height: self.texture_size[1]
+            pos_hint: {"center_x": 0.5} 
+            padding_y: 15
+            halign: "center"
+
+        MDTextField:
+            id: staff_id
+            icon_right: "account"
+            hint_text: "Staff Id"
+            helper_text: "Please enter the staff ID you used to register"
+            helper_text_mode: "on_focus"
+            foreground_color: 0,0,0,1
+            size_hint_x: None
+            width: 300
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+    
+        MDTextField:
+            id: password
+            icon_right: "eye-off"
+            hint_text: "password"
+            size_hint_x: None
+            helper_text: "Please enter your password"
+            helper_text_mode: "on_focus"
+            width: 300
+            password: True
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+        MDRoundFlatButton:
+            text: "LOG IN"
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_release: root.log_in()
+        MDRoundFlatButton:
+            text: "BACK"
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "authorization"    
+        Widget:
+            height: 170
+    
+
+<GreetUser>:
+    name: "greet"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 30
+         
+        MDTopAppBar:
+            title: 'Greet User'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        Widget:
+        MDLabel:
+            text: "Welcome to SmartTracker\n A product for educational institutions to track their \n finances and view their data. \n Graphical presentation of data makes it easy to \n comprehend, plan and execute financial plans in a few easy steps\n \n Powered by \n Fisiks Inc."
+            font_size: 22
+            halign: "center"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        Widget:
+        MDRoundFlatButton:
+            text: "GO TO WORKSPACE"
+            font_size: 20
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "home"
+        Widget:
+
+<ForgotPassword>:
+    name: "forgot password"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Forgot Password?'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: "Please Enter A Security Key"
+            halign: "center"
+            font_size: 35
+
+        MDTextField:
+            id: user
+            icon_right: "key"
+            hint_text: "Security key"
+            size_hint_x: None
+            helper_text: "Please enter your password"
+            helper_text_mode: "on_focus"
+            required: True
+            width: 250
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+            password: True
+    
+        MDRoundFlatButton:
+            text: "Authenticate key"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "new password"
+
+        MDRoundFlatButton:
+            text: " BACK"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "new password"
+
+        Widget:
+        Widget:
+
+
+<NewPassword>:
+    name: "new password"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+         
+        MDTopAppBar:
+            title: 'New Password'
+        MDLabel:
+            text: "Create a new password"
+            halign: "center"
+            font_size: 30
+
+        MDTextField:
+            id: staff_id
+            hint_text: "Staff ID"
+            size_hint_x: None
+            helper_text: "Please enter your staff ID"
+            helper_text_mode: "on_focus"
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+            icon_right: "eye-off"
+
+        MDTextField:
+            id: new_password
+            hint_text: "New Password"
+            size_hint_x: None
+            helper_text: "Please enter your password"
+            helper_text_mode: "on_focus"
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+            icon_right: "eye-off"
+        MDTextField:
+            id: repeat_new_password
+            hint_text: "Repeat Password"
+            size_hint_x: None
+            helper_text: "Please re-enter your password"
+            helper_text_mode: "on_focus"
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+            icon_right: "eye-off"
+        Widget:
+        MDRoundFlatButton:
+            text: "Submit"
+            font_size: 13
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+        MDRoundFlatButton:
+            text: " Back "
+            font_size: 13
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            on_release: root.manager.current = "authorization"
+        Widget:
+
+
+<RegisterAccount>:
+    name: "register account"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical" 
+        spacing: 5
+
+        MDTopAppBar:
+            title: 'Register Account'
+
+        MDLabel:
+            text: "REGISTER NEW ACCOUNT"
+            font_size: 20
+            bold: True
+            size_hint_y: None
+            height: self.texture_size[1]
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+            halign: "center"
+
+        MDTextField:
+            id: first_name
+            hint_text: "First name"
+            size_hint_x: None
+            helper_text: "Please enter your first name"
+            helper_text_mode: "on_focus"
+            icon_right: "account"
+            width: 300
+            font_size: 20
+            pos_hint: {"center_x": 0.5} 
+
+        MDTextField:
+            id: surname
+            hint_text: "Surname"
+            size_hint_x: None
+            helper_text: "Please enter your surname here"
+            helper_text_mode: "on_focus"
+            icon_right: "account"
+            width: 300
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+        
+        MDTextField:
+            id: staff_id
+            hint_text: "staff_id"
+            size_hint_x: None
+            helper_text: "Please enter your staff id"
+            helper_text_mode: "on_focus"
+            icon_right: "key"
+            width: 300
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+
+        MDTextField:
+            id: email
+            hint_text: "email"
+            size_hint_x: None
+            helper_text: "Please enter a valid email"
+            helper_text_mode: "on_focus"
+            icon_right: "email"
+            width: 300
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+
+        MDTextField:
+            id: user_name
+            hint_text: "user_name"
+            size_hint_x: None
+            helper_text: "This is what you will use to log in everytime."
+            helper_text_mode: "on_focus"
+            icon_right: "account"
+            width: 300
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+        
+        MDTextField:
+            id: password
+            icon_right: "eye-off"
+            hint_text: "password"
+            size_hint_x: None
+            helper_text: "Password must have at least 8 characters"
+            helper_text_mode: "on_focus"
+            width: 300
+            password: True
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+        
+        MDTextField:
+            id: reenter_password
+            icon_right: "eye-off"
+            hint_text: "Re-enter password"
+            size_hint_x: None
+            helper_text: "This has to match the first password"
+            helper_text_mode: "on_focus"
+            width: 300
+            password: True
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+
+        MDRoundFlatButton:
+            text: "REGISTER"
+            font_size: 13
+            pos_hint: {"center_x": 0.5}
+            on_release: root.register_account()
+
+
+        MDRoundFlatButton:
+            text: "BACK"
+            font_size: 13
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "authorization"
+
+        Widget:
+        Widget:
+    
+<ChangePassword>:
+    name: "change password"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical" 
+        spacing: 15
+
+        MDTopAppBar:
+            title: 'Change Password'
+        MDLabel:
+            text: "Change your password"
+            halign: "center"
+            font_size: 
+        MDTextField:
+            id: staff_id
+            hint_text: "Staff Id"
+            size_hint_x: None
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            icon_right: "key"
+        MDTextField:
+            id: old_password
+            hint_text: "Old password"
+            size_hint_x: None
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+            icon_right: "eye-off"
+        
+        MDTextField:
+            id: new_password
+            hint_text: "New Password"
+            size_hint_x: None
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+            icon_right: "eye-off"
+
+        MDTextField:
+            id: repeat_new_password
+            hint_text: "Repeat New Password"
+            size_hint_x: None
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+            icon_right: "eye-off"
+        Widget:
+        MDRoundFlatButton:
+            text: "Confirm"
+            font_size: 14
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.change_password()
+            
+
+        MDRoundFlatButton:
+            text: " BACK "
+            font_size: 14
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_press: root.manager.current = "authorization"
+        Widget:
+        Widget:
+    
+
+<Home>:
+    name: "home"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+
+        MDTopAppBar:
+            title: 'HOME'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+
+        Widget:
+        Widget:
+
+        MDRoundFlatIconButton:
+            id: fees 
+            icon:'currency-usd'
+            text: "               FEES                 " 
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "fees"    
+        
+        MDRoundFlatIconButton:
+            id: staff
+            icon: "human"
+            text: "             STAFF                "
+            size_hint_x: None
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "staff"
+        MDRoundFlatIconButton:
+            id: manage 
+            icon: "graph"
+            text: "          MANAGE              " 
+            size_hint_x: None
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "manage"
+
+        MDRoundFlatIconButton:
+            id: student_info
+            icon:"human-male-female"
+            text: "        STUDENTS            "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "students information"
+        MDRoundFlatIconButton:
+            id: expenditure
+            icon:'currency-usd'
+            text: "      EXPENDITURE         "
+            size_hint_x: None
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "expenditure"
+        Widget:
+        Widget:
+        Widget:
+<Fees>:
+    name: "fees"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+         
+        MDTopAppBar:
+            title: 'Fees'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: ""
+        MDRoundFlatIconButton:
+            icon: "clipboard-check"
+            text: "                   PAID LIST                    "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = 'paid'
+        MDRoundFlatIconButton:
+            icon: 'clipboard-minus'
+            text: "                    ARREARS LIST                      " 
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "owing"
+
+        MDRoundFlatIconButton:
+            icon:"clipboard-list"
+            text: "              COMPLETE CLASS LIST                " 
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "complete class list"
+
+        MDRoundFlatIconButton:
+            icon:"account-cash"
+            text: "             PAYMENT PLATFORM             "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = 'payment platform'
+
+        
+        MDRoundFlatIconButton:
+            icon:"account-check"
+            id: payment_history
+            text: "        PAYMENT HISTORY          "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "payment history"
+
+        MDFillRoundFlatButton:
+            text: "WORKSPACE"
+            font_size: 14
+            pos_hint: {"center_x": 0.5}
+            on_press: root.manager.current = "home"
+        
+        MDFillRoundFlatButton:
+            text: "  EXIT  "
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_press: root.manager.current = "authorization"
+        Widget:
+    
+            
+
+<Paid>:
+    name: "paid"
+    BoxLayout:
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 10
+                
+        MDTopAppBar:
+            title: 'Paid List'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: class_list_spinner
+                    text: "Select class"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades
+                    on_text: root.spinner_clicked(class_list_spinner.text)
+                    on_text: self.background_color = 0, .6, 0, .9
+                Widget:
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.view_paid_list()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "fees"
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+
+
+<Owing>:
+    name: "owing"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 10
+                
+        MDTopAppBar:
+            title: 'Arrears List'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: class_list_spinner
+                    text: "Select class"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades
+                    on_text: root.spinner_clicked(class_list_spinner.text)
+                    on_text: self.background_color = 0, .6, 0, .9
+
+                Widget:
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.view_arrears_list()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "fees"
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+
+
+<CompleteClassList>:
+    name: "complete class list"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+                
+        MDTopAppBar:
+            title: 'Complete Class List'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: class_list_spinner
+                    text: "Select class"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades
+                    on_text: root.spinner_clicked(class_list_spinner.text)
+                    on_text: self.background_color = 0, .6, 0, .9
+
+                Widget:
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.view_complete_list()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "fees"
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+
+<PaymentPlatform>:
+    name: 'payment platform'
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+         
+        MDTopAppBar:
+            title: "Payment Platform"
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            bar_color: 0,0,1,1
+            bar_pos_y: "right"
+            bar_width: 3
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            scroll_type: ['bars', 'content']
+            # bar_inactive_color: 0, 0, 0, 1
+            
+            BoxLayout:
+                orientation:'vertical'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                size: root.width, 550
+                spacing: 7
+
+                
+                MDLabel:
+                    text: "PAYMENT PLATFORM"
+                    font_size: 25
+                    bold: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                    halign: "center"
+
+                CustomSpinner:
+                    id: select_term_spinner
+                    text: "Select Term"
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["First Term", "Second Term", "Third Term"]
+                    on_text: root.update_names_spinner(grade_and_category_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1 
+
+                CustomSpinner:
+                    id: grade_and_category_spinner
+                    text: "Select Grade"
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.g_and_c
+                    on_text: root.update_names_spinner(grade_and_category_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1 
+
+
+                CustomSpinner:
+                    id: students_full_name_spinner
+                    text: "Select Name"
+                    size_hint: (None, None)
+                    font_size: 20
+                    size: 300, 40
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: root.update_names_spinner(students_full_name_spinner.text)
+                    on_text: self.background_color= 0,.6,0,.9 
+                    on_text: root.show_registration_no()
+
+
+                CustomSpinner:
+                    id: select_payee_spinner
+                    text: "Select Payee"
+                    size_hint: (None, None)
+                    font_size: 20
+                    size: 300, 40
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["Parent", "Guardian", "Teacher", "Student"]
+                    on_text: root.update_names_spinner(select_payee_spinner.text)
+                    on_text: self.background_color= 0,.6,0,.9 
+
+                
+
+                CustomSpinner:
+                    id: payment_type_spinner
+                    text: "Transaction Mode"
+                    size_hint: (None, None)
+                    font_size: 20
+                    size: 300, 40
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    values:["Cash", "Cheque", "Bank Draft", "Wire Transfer"]
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: root.update_names_spinner(payment_type_spinner.text)
+                    on_text: self.background_color= 0,.6,0,.9
+
+
+                MDLabel:
+                    id: registration_number_of_paying_student
+                    text: 'Registration number of selected student'
+                    background_normal: ""
+                    background_color: 0, 0, .7, .9
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 16
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    halign: 'center'
+
+                MDTextField:
+                    id: amt     
+                    hint_text: "Amt in GHc"
+                    size_hint_x: None
+                    helper_text: "Please enter amount here"
+                    helper_text_mode: "on_focus"
+                    input_filter: "int"
+                    icon_right: "money"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5} 
+
+                
+                MDTextField:
+                    id: name_of_payee
+                    hint_text: "Name of payee"
+                    size_hint_x: None
+                    helper_text: "Name of person making the payment"
+                    helper_text_mode: "on_focus"
+                    icon_right: "male-female"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: receipt_no
+                    hint_text: "Receipt Number/Cheque Number"
+                    size_hint_x: None
+                    helper_text: "Number on the students receipt"
+                    helper_text_mode: "on_focus"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+       
+        MDRoundFlatButton:
+            text: " PAY "
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_release: root.transaction_confirmation()
+
+
+        MDRoundFlatButton:
+            text: "BACK"
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "fees"
+        
+
+<PaymentHistory>:
+    name: "payment history"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+                
+        MDTopAppBar:
+            title: 'Payment History'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: grade_and_category_spinner
+                    text: "Select class"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades
+                    on_text: root.update_names_spinner(grade_and_category_spinner.text)
+                    on_text: self.background_color = 0,.6,0,.9
+                    
+                CustomSpinner:
+                    id: students_full_name_spinner
+                    text: "Select name"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: self.background_color = 0,.6,0,.9
+                Widget:
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.view_payment_history()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "fees"
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: tables_box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+
+
+<Staff>:
+    name: "staff"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 18
+
+        MDTopAppBar:
+            title: 'Staff'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: ""
+
+        MDRoundFlatIconButton:
+            id: register_new_staff 
+            icon: "clipboard-list"
+            text: "                 REGISTER NEW STAFF                   " 
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "register staff security"
+
+        MDRoundFlatIconButton:
+            id: staff
+            icon:"account-edit"
+            text: "               EDIT STAFF DETAILS              "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "edit staff security"
+
+        MDRoundFlatIconButton:
+            id: staff
+            icon: 'eye'
+            text: "            VIEW STAFF DETAILS          "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "view staff details"
+        MDRoundFlatIconButton:
+            id: staff
+            icon: 'run-fast'
+            text: "             EXITED STAFF            "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            # on_release: root.manager.current = "view staff details"
+        Widget:
+            height: 30
+        MDFillRoundFlatButton:
+            text: "  BACK  "
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "home"
+        Widget:  
+        Widget:
+
+
+<RegisterStaffSecurity>:
+    name: "register staff security"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Security key'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: "Please enter a security key"
+            halign: "center"
+            font_size: 35
+
+        MDTextField:
+            id: user
+            icon_right: "key"
+            hint_text: "Security key"
+            size_hint_x: None
+            helper_text: "Please enter a security key"
+            helper_text_mode: "on_focus"
+            required: True
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+    
+        MDRoundFlatButton:
+            text: "Authenticate key"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "staff registration forms"
+
+        MDRoundFlatButton:
+            text: " BACK "
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "staff"
+
+        Widget:
+        Widget:
+
+
+
+<StaffRegistrationForms>:
+    name: "staff registration forms"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+         
+        MDTopAppBar:
+            title: "Staff Registration Forms"
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            bar_color: 0,0,1,1
+            bar_pos_y: "right"
+            bar_width: 4
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            scroll_type: ['bars', 'content']
+            bar_inactive_color: 0, 1, 0, 1
+            
+            BoxLayout:
+                orientation:'vertical'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                size: 500, 1010
+                spacing: 10
+
+                MDLabel:
+                    text: "REGISTER NEW STAFF"
+                    font_size: 20
+                    bold: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                    halign: "center"
+
+                MDTextField:
+                    id: staff_first_name
+                    hint_text: "First name"
+                    size_hint_x: None
+                    helper_text: "Please enter staff's first name"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "account"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5} 
+
+                MDTextField:
+                    id: staff_surname
+                    hint_text: "Surname"
+                    size_hint_x: None
+                    helper_text: "Please enter staff's surname"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "account"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                CustomSpinner:
+                    id: staff_gender
+                    text: "Gender"
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 20
+                    bold: True
+                    background_color: .7,0,0,.9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["Male", "Female"]
+                    on_text: root.spinner_clicked(staff_gender.text)
+                    on_text: self.background_color= 0,.6,0,.9
+                
+                MDTextField:
+                    id: staff_id
+                    hint_text: "Staff Id"
+                    size_hint_x: None
+                    helper_text: "This is a 4-digit unique number"
+                    helper_text_mode: "on_focus"
+                    input_filter: "int"
+                    icon_right: "key"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+               
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                BoxLayout:
+                    orientation: "horizontal"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    height: 100
+    
+                    Widget:
+                    MDTextField:
+                        id: staff_dob 
+                        hint_text: "Date of Birth"
+                        size_hint_x: None
+                        helper_text: "Click the icon to select a date"
+                        helper_text_mode: "on_focus"
+                        width: 255
+                        font_size: 20
+                        pos_hint: {"center_x": 0.5}
+                    MDIconButton:
+                        icon: "calendar-check"
+                        theme_icon_color: "Custom"
+                        icon_color: app.theme_cls.primary_color
+                        on_release: root.show_staff_dob()
+                    Widget:
+
+                MDTextField:
+                    id: qualification
+                    hint_text: "Qualification(s)"
+                    size_hint_x: None
+                    helper_text: "Staff member's qualification(s) if any"
+                    helper_text_mode: "on_focus"
+                    icon_right: "school"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: name_of_school
+                    hint_text: "Name of Highest Institution(s)"
+                    size_hint_x: None
+                    helper_text: "Staff member's higest or last attended institution"
+                    helper_text_mode: "on_focus"
+                    icon_right: "school"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                
+                MDTextField:
+                    id: position_assigned
+                    hint_text: "Position Assigned"
+                    size_hint_x: None
+                    helper_text: "Staff Members Position"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "work"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5} 
+
+                MDTextField:
+                    id: staff_phone_number
+                    hint_text: "Phone number"
+                    size_hint_x: None
+                    helper_text: "Please enter a 10-digit number"
+                    helper_text_mode: "on_focus"
+                    icon_right: "phone"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: staff_email
+                    hint_text: "email"
+                    size_hint_x: None
+                    helper_text: "Please enter a valid  email."
+                    helper_text_mode: "on_focus"
+                    icon_right: "email"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                CustomSpinner:
+                    id: staff_type_spinner
+                    text: "Select staff type"
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 20
+                    bold: True
+                    background_color: .7,0,0,.9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ['Teaching', 'Non Teaching']
+                    on_text: root.spinner_clicked(staff_type_spinner.text)
+                    on_text: self.background_color= 0,.6, 0,.9
+                CustomSpinner:
+                    id: salary_grade_spinner
+                    text: "Select salary grade"
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 20
+                    bold: True
+                    background_color: .7,0,0,.9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["Grade A", "Grade B", "Grade C", "Management", "Differentiated"]
+                    on_text: root.spinner_clicked(salary_grade_spinner.text)
+                    on_text: self.background_color= 0,.6, 0,.9
+
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget: 
+                Widget:
+                BoxLayout:
+                    orientation: "horizontal"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    height: 100
+                    Widget:
+                    MDTextField:
+                        id: date_appointed 
+                        hint_text: "Date of appointment"
+                        size_hint_x: None
+                        helper_text: "Click icon to select appointment date"
+                        helper_text_mode: "on_focus"
+                        # required: True
+                        input_filter: "int"
+                        width: 255
+                        font_size: 20
+                        pos_hint: {"center_x": 0.5}
+                    MDIconButton:
+                        icon: "calendar-check"
+                        theme_icon_color: "Custom"
+                        icon_color: app.theme_cls.primary_color
+                        on_release: root.show_appointment_date()
+                    Widget:
+
+                MDIconButton:
+                    icon: "folder"
+                    pos_hint: {"center_x": 0.5}
+                MDLabel:
+                    id: upload_qualificaton_certificate
+                    text: 'upload staff certificates'
+                    size_hint_x: None
+                    width: 200
+                    font_size: 16
+                    pos_hint: {"center_x": 0.5}
+
+                # FileChooserIconView:
+                #     id: certificate_file
+                #     on_selection: regis_staff.selected(certificate_file.selection)
+        MDRoundFlatButton:
+            text: "SAVE"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.register_staff()
+
+        MDRoundFlatButton:
+            text: " BACK "
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "staff"
+
+<EditStaffSecurity>:
+    name: "edit staff security"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Security key'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: "Please enter a security key"
+            halign: "center"
+            font_size: 35
+
+        MDTextField:
+            id: user
+            icon_right: "key"
+            hint_text: "Security key"
+            size_hint_x: None
+            helper_text: "Please enter a security key"
+            helper_text_mode: "on_focus"
+            required: True
+            width: 250
+            font_size: 19
+            pos_hint: {"center_x": 0.5}
+            password: True
+    
+        MDRoundFlatButton:
+            text: "Authenticate key"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "edit staff details"
+
+        MDRoundFlatButton:
+            text: " BACK "
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "staff"
+
+        Widget:
+        Widget:
+
+<EditStaffDetails>:
+    name: "edit staff details"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Edit Staff Details'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 550
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 400, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+
+                CustomSpinner:
+                    id: select_staff_type_spinner
+                    text: "Select Staff Type"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7,0,0,.9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.the_staff_type
+                    on_text: root.update_names_spinner(select_staff_type_spinner.text)
+                    on_text: self.background_color= 0,.6, 0,.9
+
+
+                CustomSpinner:
+                    id: select_staff_name_spinner
+                    text: "Select Staff Name"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7,0,0,.9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: root.show_data_to_be_edited()
+                    on_text: self.background_color= 0,.6, 0,.9
+
+                    
+                Widget:
+                MDRoundFlatButton:
+                    text: "SAVE"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.save_edited_info()
+
+                
+                MDRoundFlatButton:
+                    text: "BACK"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "staff"
+
+                    
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: edit_box
+                orientation: "vertical"
+                size: 600, 400
+                spacing: 10
+                pos: 460, 100
+                ScrollView:
+                    do_scroll_y: True
+                    do_scroll_x: False
+                    # bar_color: 0,0,1,1
+                    bar_pos_y: "right"
+                    bar_width: 4
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    scroll_type: ['bars', 'content']
+            
+                    BoxLayout:
+                        orientation:'vertical'
+                        size_hint_y: None
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                        size: 500, 850
+                        spacing: 10
+
+                        MDLabel:
+                            text: "EDIT STAFF INFO"
+                            font_size: 24
+                            bold: True
+                            foreground_color: 0,0,0,1
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                            halign: "center"
+
+                        MDTextField:
+                            id: staff_first_name
+                            hint_text: "First name"
+                            size_hint_x: None
+                            helper_text: "Staff member's first name"
+                            helper_text_mode: "on_focus"
+                            icon_right: "account"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5} 
+
+                        MDTextField:
+                            id: staff_surname
+                            hint_text: "Surname"
+                            size_hint_x: None
+                            helper_text: "Staff Member's surname"
+                            helper_text_mode: "on_focus"
+                            icon_right: "account"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+                        CustomSpinner:
+                            id: staff_gender_spinner
+                            text: "Select Gender"
+                            size_hint: (None, None)
+                            size: 300, 40
+                            font_size: 20
+                            bold: True
+                            background_color: .7, 0, 0, .9
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            values: ["Male", "Female"]
+                            on_text: root.spinner_clicked(staff_gender_spinner.text)
+                            on_text: self.background_color= 0,.6,0,1
+        
+                        BoxLayout:
+                            orientation: "horizontal"
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                            height: 50
+            
+                            Widget:
+                            MDTextField:
+                                id: staff_dob 
+                                hint_text: "Date of Birth"
+                                size_hint_x: None
+                                helper_text: "Click on the icon to select a valid date of birth"
+                                helper_text_mode: "on_focus"
+                                width: 255
+                                font_size: 20
+                                pos_hint: {"center_x": 0.5}
+                            MDIconButton:
+                                icon: "calendar-check"
+                                theme_icon_color: "Custom"
+                                icon_color: app.theme_cls.primary_color
+                                on_release: root.show_calendar()
+                            Widget:
+
+                       
+
+                        MDTextField:
+                            id: qualification
+                            hint_text: "Qualification(s)"
+                            size_hint_x: None
+                            helper_text: "Staff member's qualification(s) if any"
+                            helper_text_mode: "on_focus"
+                            icon_right: "hospital"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        
+                        MDTextField:
+                            id: name_of_school
+                            hint_text: "Name of Highest Institution(s)"
+                            size_hint_x: None
+                            helper_text: "Staff member's higest or last attended institution"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-alt"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5} 
+
+                        MDTextField:
+                            id: position_assigned
+                            hint_text: "Position Assigned"
+                            size_hint_x: None
+                            helper_text: "Staff Members Position"
+                            helper_text_mode: "on_focus"
+                            icon_right: "female"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        MDTextField:
+                            id: staff_phone_number
+                            hint_text: "Phone number"
+                            size_hint_x: None
+                            helper_text: "Please enter a 10-digit number"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-female"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5} 
+                        
+                        MDTextField:
+                            id: staff_email
+                            hint_text: "Email"
+                            size_hint_x: None
+                            helper_text: "Please enter a valid  email."
+                            helper_text_mode: "on_focus"
+                            icon_right: "phone"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                       
+                        CustomSpinner:
+                            id: salary_grade_spinner
+                            text: "Select Salary Grade"
+                            size_hint: (None, None)
+                            size: 300, 40
+                            font_size: 20
+                            bold: True
+                            values:["Grade A", "Grade B", "Grade C", "Management", "Differentiated"]
+                            background_color: .7, 0, 0, .9
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            on_text: root.spinner_clicked(salary_grade_spinner.text) 
+                            on_text: self.background_color= 0,.6,0,1
+                        Widget:
+            BoxLayout:
+                size: 50, 500
+
+
+<ViewStaffDetails>:
+    name: "view staff details"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'View Staff Details'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 15
+
+                CustomSpinner:
+                    id: select_staff_type_spinner
+                    text: "Select Staff Type"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7,0,0,.9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.the_staff_type
+                    on_text: root.update_names_spinner(select_staff_type_spinner.text)
+                    on_text: self.background_color = 0,.6,0,.9
+                CustomSpinner:
+                    id: select_staff_name_spinner
+                    text: "Select Staff Name"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7,0,0,.9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: root.spinner_clicked(select_staff_name_spinner.text)
+                    on_text: self.background_color = 0,.6,0,.9
+                
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.view_staff()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "staff"
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+
+
+        
+            
+<StudentsInformation>:
+    name: "students information"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Students Information'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: ""
+        MDRoundFlatIconButton:
+            icon: 'clipboard-list'
+            text: "               REGISTER NEW STUDENT               " 
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "student registration form"
+
+
+        MDRoundFlatIconButton:
+            id: view_student_details
+            icon: 'eye'
+            text: "           VIEW STUDENT DETAILS           "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "view student details"
+        
+        MDRoundFlatIconButton:
+            id: edit_student_details
+            icon:"account-edit-outline"
+            text: "        EDIT STUDENT DETAILS        "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "edit student details"
+            
+        MDRoundFlatIconButton:
+            id: completed_students_details
+            icon: 'human-handsup'
+            text: "     COMPLETED STUDENTS     "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "completed students"
+        MDRoundFlatIconButton:
+            id: exited_students
+            icon: 'run-fast'
+            text: "  EXITED STUDENTS  "
+            size_hint_x: None
+            width: 250
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "exited students"
+        
+        MDFillRoundFlatButton:
+            text: "BACK"
+            font_size: 15
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_press: root.manager.current = "home"
+        Widget:
+        Widget:
+
+
+
+<StudentRegistrationForm>:
+    name: "student registration form"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical" 
+        spacing: 5
+
+        MDTopAppBar:
+            title: 'Student Registration Form'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            bar_color: 0,0,1,1
+            bar_pos_y: "right"
+            bar_width: 4
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            scroll_type: ['bars', 'content']
+            bar_inactive_color: 0, 1, 0, 1
+            
+            BoxLayout:
+                orientation:'vertical'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                size: root.width, 1065
+                spacing: 7
+
+                
+                MDLabel:
+                    text: "REGISTER NEW STUDENT"
+                    font_size: 20
+                    bold: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                    halign: "center"
+
+                MDTextField:
+                    id: first_name
+                    hint_text: "First name"
+                    size_hint_x: None
+                    helper_text: "Please enter student's first name"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "account"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5} 
+
+                MDTextField:
+                    id: surname
+                    hint_text: "Surname"
+                    size_hint_x: None
+                    helper_text: "Please enter student's surname"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "account"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+                CustomSpinner:
+                    id: student_gender_spinner
+                    text: "Select Gender"
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["Male", "Female"]
+                    on_text: root.spinner_clicked(student_gender_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+                
+                MDTextField:
+                    id: registration_number
+                    hint_text: "Registration Number"
+                    size_hint_x: None
+                    helper_text: "This is a 4-digit number"
+                    helper_text_mode: "on_focus"
+                    input_filter: "int"
+                    # required: True
+                    icon_right: "n-4-square"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: dob 
+                    hint_text: "Date of Birth"
+                    size_hint_x: None
+                    helper_text: "Please enter a valid date of birth"
+                    helper_text_mode: "on_focus"
+                    icon_right: "calendar"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: special_health_condition
+                    hint_text: "Special Health Condition"
+                    size_hint_x: None
+                    helper_text: "Briefly state student's allergies or conditions"
+                    helper_text_mode: "on_focus"
+                    icon_right: "hospital"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                
+                MDTextField:
+                    id: father_name
+                    hint_text: "Father's name"
+                    size_hint_x: None
+                    helper_text: "Please enter surname first"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "male-alt"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5} 
+
+                MDTextField:
+                    id: mother_name
+                    hint_text: "Mother's name"
+                    size_hint_x: None
+                    helper_text: "Please enter surname first"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "female"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: guardian_name
+                    hint_text: "Guardian's name"
+                    size_hint_x: None
+                    helper_text: "Please enter surname first"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "male-female"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5} 
+                
+                MDTextField:
+                    id: parent_guardian_phone
+                    hint_text: "Phone number"
+                    size_hint_x: None
+                    helper_text: "Parent or guardian's active phone number"
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "phone"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: parent_guardian_email
+                    hint_text: "email"
+                    size_hint_x: None
+                    helper_text: "Please enter a valid  email."
+                    helper_text_mode: "on_focus"
+                    # required: True
+                    icon_right: "email"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                MDTextField:
+                    id: parent_guardian_occupation
+                    hint_text: "Occupation"
+                    size_hint_x: None
+                    helper_text: "Parents primary source of income"
+                    helper_text_mode: "on_focus"
+                    icon_right: "office"
+                    width: 300
+                    font_size: 20
+                    pos_hint: {"center_x": 0.5}
+
+                CustomSpinner:
+                    id: grade_spinner
+                    text: "Select class"
+                    size_hint: (None, None)
+                    size: 300, 40
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades
+                    on_text: root.spinner_clicked(grade_spinner.text) 
+                    on_text: self.background_color= 0,.6,0,1
+
+                
+                CustomSpinner:
+                    id: grade_category_spinner
+                    text: "Select grade category"
+                    size_hint: (None, None)
+                    font_size: 20
+                    size: 300, 40
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: [ "A", "B"]
+                    on_text: root.spinner_clicked(grade_category_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+
+
+                CustomSpinner:
+                    id: status_spinner
+                    text: "Select status"
+                    size_hint: (None, None)
+                    font_size: 20
+                    size: 300, 40
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: [ "Day", "Boarding"]
+                    on_text: root.spinner_clicked(status_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+
+        MDRectangleFlatButton:
+            text: "REGISTER"
+            font_size: 14
+            pos_hint: {"center_x": 0.5}
+            on_release: root.register_student() 
+
+
+        MDRectangleFlatButton:
+            text: "BACK"
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "students information"
+
+
+<ViewStudentDetails>:
+    name: "view student details"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical" 
+        spacing: 25
+
+        MDTopAppBar:
+            title: 'View Students Details'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: grade_and_category_spinner
+                    text: "Select Class"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades
+                    on_text: root.update_names_spinner(grade_and_category_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+                    
+                CustomSpinner:
+                    id: students_full_name_spinner
+                    text: "Select Name"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: self.background_color= 0,.6,0,1
+                Widget:
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.preview_students()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 15
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.close_table()
+                    on_release: root.manager.current = "students information"
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+
+
+
+<EditStudentsDetails>:
+    name: "edit student details"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical" 
+        spacing: 25
+
+        MDTopAppBar:
+            title: 'Edit Student Details'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+            spacing: 50
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 400, 550
+                pos: 50, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: grade_and_category_spinner
+                    text: "Select Class"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9 
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades_and_category
+                    on_text: root.update_names_spinner(grade_and_category_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+                    
+                CustomSpinner:
+                    id: students_full_name_spinner
+                    text: "Select Name"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: root.show_data_to_be_edited()
+                    on_text: self.background_color= 0,.6,0,1
+               
+                Widget:
+                MDRoundFlatButton:
+                    text: " SAVE"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.save_edited_info()
+
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "students information"
+                    
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: edit_box
+                orientation: "vertical"
+                size: 600, 430
+                spacing: 10
+                pos: 460, 100
+                ScrollView:
+                    do_scroll_y: True
+                    do_scroll_x: False
+                    bar_color: 0,0,1,1
+                    bar_pos_y: "right"
+                    bar_width: 4
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    scroll_type: ['bars', 'content']
+                    # bar_inactive_color: 0, 1, 0, 1
+            
+                    BoxLayout:
+                        orientation:'vertical'
+                        size_hint_y: None
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                        size: 500, 930
+                        spacing: 10
+
+                    
+                        MDLabel:
+                            text: "EDIT STUDENT INFO"
+                            font_size: 24
+                            bold: True
+                            foreground_color: 0,0,0,1
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                            halign: "center"
+
+                        MDTextField:
+                            id: first_name
+                            hint_text: "First name"
+                            size_hint_x: None
+                            helper_text: "Please enter student's first name"
+                            helper_text_mode: "on_focus"
+                            icon_right: "account"
+                            width: 300
+                            required: True
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5} 
+
+                        MDTextField:
+                            id: surname
+                            hint_text: "Surname"
+                            size_hint_x: None
+                            helper_text: "Please enter student's surname"
+                            helper_text_mode: "on_focus"
+                            icon_right: "account"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+                        CustomSpinner:
+                            id: student_gender_spinner
+                            text: "Select Gender"
+                            size_hint: (None, None)
+                            size: 300, 40
+                            font_size: 20
+                            bold: True
+                            background_color: .7, 0, 0, .9
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            values: ["Male", "Female"]
+                            on_text: root.spinner_clicked(student_gender_spinner.text)
+                            on_text: self.background_color= 0,.6,0,1
+                        Widget:
+                        Widget:
+                        BoxLayout:
+                            orientation: "horizontal"
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                            height: 100
+            
+                            Widget:
+                            MDTextField:
+                                id: dob 
+                                hint_text: "Date of Birth"
+                                size_hint_x: None
+                                helper_text: "Click on the icon to select a valid date of birth"
+                                helper_text_mode: "on_focus"
+                                # required: True
+                                # input_filter: "int"
+                                width: 255
+                                font_size: 20
+                                pos_hint: {"center_x": 0.5}
+                            MDIconButton:
+                                icon: "calendar-check"
+                                theme_icon_color: "Custom"
+                                
+                                on_release: root.show_calendar()
+                            Widget:
+
+                       
+
+                        MDTextField:
+                            id: special_health_condition
+                            hint_text: "Special Health Condition"
+                            size_hint_x: None
+                            helper_text: "Briefly state student's allergies or conditions"
+                            helper_text_mode: "on_focus"
+                            icon_right: "hospital"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        
+                        MDTextField:
+                            id: father_name
+                            hint_text: "Father's name"
+                            size_hint_x: None
+                            helper_text: "Please enter surname first"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-alt"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5} 
+
+                        MDTextField:
+                            id: mother_name
+                            hint_text: "Mother's name"
+                            size_hint_x: None
+                            helper_text: "Please enter surname first"
+                            helper_text_mode: "on_focus"
+                            icon_right: "female"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        MDTextField:
+                            id: guardian_name
+                            hint_text: "Guardian's name"
+                            size_hint_x: None
+                            helper_text: "Please enter surname first"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-female"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5} 
+                        
+                        MDTextField:
+                            id: parent_guardian_phone
+                            hint_text: "Parent/Guardian's phone number"
+                            size_hint_x: None
+                            helper_text: "Parent or guardian's active phone number"
+                            helper_text_mode: "on_focus"
+                            icon_right: "phone"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        MDTextField:
+                            id: parent_guardian_email
+                            hint_text: "Parent/Guardian's email"
+                            size_hint_x: None
+                            helper_text: "Please enter a valid  email."
+                            helper_text_mode: "on_focus"
+                            icon_right: "email"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        MDTextField:
+                            id: parent_guardian_occupation
+                            hint_text: "Occupation"
+                            size_hint_x: None
+                            helper_text: "Parents primary source of income"
+                            helper_text_mode: "on_focus"
+                            icon_right: "office"
+                            width: 300
+                            foreground_color: 0,0,0,1
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        CustomSpinner:
+                            id: grade_spinner
+                            text: "Select class"
+                            size_hint: (None, None)
+                            size: 300, 40
+                            font_size: 20
+                            bold: True
+                            background_color: .7, 0, 0, .9
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            values: root.grades
+                            on_text: root.spinner_clicked(grade_spinner.text) 
+                            on_text: self.background_color= 0,.6,0,1
+                        
+                        CustomSpinner:
+                            id: grade_category_spinner
+                            text: "Select grade category"
+                            size_hint: (None, None)
+                            font_size: 20
+                            size: 300, 40
+                            bold: True
+                            background_color: .7, 0, 0, .9
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            values: [ "A", "B"]
+                            on_text: root.spinner_clicked(grade_category_spinner.text)
+                            on_text: self.background_color= 0,.6,0,1
+
+
+                        CustomSpinner:
+                            id: status_spinner
+                            text: "Select status"
+                            size_hint: (None, None)
+                            font_size: 20
+                            size: 300, 40
+                            bold: True
+                            background_color: .7, 0, 0, .9
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            values: [ "Day", "Boarding"]
+                            on_text: root.spinner_clicked(status_spinner.text)
+                            on_text: self.background_color= 0,.6,0,1
+                        Widget:
+            BoxLayout:
+                size: 50, 500
+
+
+<CompletedStudents>:
+    name: "completed students"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical" 
+        spacing: 25
+
+        MDTopAppBar:
+            title: 'Completed Students'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: year_completed_spinner
+                    text: "Select Year Completed"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.year_completed
+                    on_text: root.update_completed_pupils(year_completed_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+                    
+                CustomSpinner:
+                    id: students_full_name_spinner
+                    text: "Select Name"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: self.background_color= 0,.6,0,1
+                Widget:
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.preview_completed_students()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "students information"
+                    
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+           
+<ExitedStudents>:
+    name: "exited students"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical" 
+        spacing: 25
+
+        MDTopAppBar:
+            title: 'Exited Stuents'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+
+                CustomSpinner:
+                    id: year_exited_spinner
+                    text: "Select Year Exited"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ['2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032']
+                    on_text: root.update_exited_pupils(year_exited_spinner.text)
+                    on_text: self.background_color= 0,.6,0,.9
+                    
+                CustomSpinner:
+                    id: students_full_name_spinner
+                    text: "Select Name"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: self.background_color= 0,.6,0,.9
+                Widget:
+                MDRoundFlatButton:
+                    text: "VIEW"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.preview_exited_students()
+
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "students information"
+                    
+                
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 920, 400
+                spacing: 10
+
+
+<Info>:
+    name: "info"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Info'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: "This is the info page"
+            halign: "center"
+            font_size: 30
+
+        Widget:
+
+
+<Manage>:
+    name: "manage"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Manage'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        Widget:
+        MDRoundFlatIconButton:
+            icon:"clipboard-list"
+            text: "      SET         "
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "set security key"
+        MDRoundFlatIconButton:
+            icon: "chart-bar"
+            text: "ANALYTICS"
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "analytics"
+
+        MDFillRoundFlatButton:
+            text: "BACK"
+            font_size: 15
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "home"
+        Widget:
+        Widget:
+        Widget:
+
+
+<SetSecuritykey>: 
+    name: "set security key"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+         
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Security key'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: "Please Enter A Security Key"
+            halign: "center"
+            font_size: 35
+
+        MDTextField:
+            id: set_security_key
+            icon_right: "key"
+            hint_text: "Security key"
+            size_hint_x: None
+            helper_text: "Please enter  a valid security key"
+            helper_text_mode: "on_focus"
+            required: True
+            width: 250
+            font_size: 20
+            pos_hint: {"center_x": 0.5}
+            password: True
+    
+        MDRoundFlatButton:
+            text: "Authenticate key"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "set"
+            font_size: 18
+        MDRectangleFlatButton:
+            text: "BACK"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_release: root.manager.current = "manage"
+            font_size: 13
+        Widget:
+        Widget: 
+
+        
+<Set>:
+    name: 'set'
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 15
+         
+        MDTopAppBar:
+            title: 'Set'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        MDLabel:
+            text: ""
+            halign: "center"
+        
+        MDRoundFlatButton:
+            id: differentiated_staff_button
+            text: "    SET DIFFERENTIATED SALARY    "
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "differentiated salary"
+        MDRoundFlatButton:
+            text: "        PROMOTE STUDENTS       "
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.confirmation_of_promotion_dialog()
+        MDRoundFlatButton:
+            text: "  REVERSE PROMOTION  "
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.confirmation_of_demotion_dialog()
+        MDRoundFlatButton:
+            text: "      SET SALARY      "
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "set salary form"
+        MDRoundFlatButton:
+            text: "     SET TERM     "
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "set term"
+        MDRoundFlatButton:
+            text: "  SET FEES  "
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "fees breakdown"
+
+        
+        Widget:
+        MDFillRoundFlatButton:
+            text: "BACK"
+            font_size: 14
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "manage"
+        Widget:
+
+
+<DifferentiatedSalary>:
+    name: "differentiated salary"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Differentiated Salary'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1100, 550
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 480, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+                MDLabel:
+                    id: previous_total
+                    text: "Previous total salary shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "Show Previous Total"
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_previous_total()
+                MDLabel:
+                    id: current_total
+                    text: "Current total salary shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "Show Current Total"
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_current_total()
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 590, 550
+                spacing: 10
+
+                Spinner:
+                    id: reset_staff_name_spinner
+                    text: "Reset Differentiated Salary"
+                    size_hint: (None, None)
+                    radius: 30
+                    size: 350, 45
+                    font_size: 20
+                    bold: True
+                    background_normal: ""
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["Yes", "No"]
+                    on_text:root.show_staff_names(reset_staff_name_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+                Spinner:
+                    id: select_staff_name_spinner
+                    text: "Select Staff Name"
+                    size_hint: (None, None)
+                    radius: 30
+                    size: 350, 45
+                    font_size: 20
+                    bold: True
+                    background_normal: ""
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: self.background_color= 0,.6,0,1
+
+
+                ScrollView:
+                    do_scroll_y: True
+                    do_scroll_x: False
+                    bar_color: 0,0,1,1
+                    bar_pos_y: "right"
+                    bar_width: 3
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    scroll_type: ['bars', 'content']
+
+                    GridLayout:
+                        cols: 2
+                        rows: 9
+                        row_force_default: True
+                        row_default_height: 44
+                        col_force_default: True
+                        col_default_width: 160
+                        halign: "center"
+                        size_hint_y: None
+                        size_hint_x: None
+                        size: 800, 600
+                        
+                        MDLabel:
+                            text: "Pay Breakdown"
+                            font_size: 20
+                            bold: True
+                            
+                        MDLabel:
+                            font_size: 20
+                            text: "Amt in GHC"
+                            bold: True
+                            
+                        MDLabel:
+                            text: "Base Salary"
+                            font_size: 18
+                            size_hint_x: None
+                        MDTextField:
+                            id: base_salary
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Studies"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: staff_studies
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Honourarium"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: honourarium
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Motivation"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: staff_motivation
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Bonus"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: bonus
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "SSNIT Contibution"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: ssnit_contibution
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Income Tax"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: income_tax
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Welfare"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: staff_welfare
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200    
+                MDRoundFlatButton:
+                    text: "SAVE"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.set_differentiated_salary()
+                    
+                MDRoundFlatButton:
+                    text: "BACK"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.manager.current = "set"
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 10, 550
+                spacing: 10
+
+
+<SetSalaryForm>:
+    name: "set salary form"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Set Salary Form'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1100, 550
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 480, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+                
+                MDLabel:
+                    id: current_total
+                    text: "Total salary shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "Show Total"
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_current_total()
+                MDLabel:
+                    id: previous_total
+                    text: "Total salary shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "Previous Total"
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_previous_total()
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 590, 550
+                spacing: 10
+                
+                Spinner:
+                    id: select_salary_grade_spinner
+                    text: "Select Salary Grade"
+                    size_hint: (None, None)
+                    radius: 30
+                    size: 350, 45
+                    font_size: 20
+                    bold: True
+                    background_normal: ""
+                    background_color: .7, 0, 0, 1
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["Grade A", "Grade B", "Grade C", "Management"]
+                    on_text: root.spinner_clicked(select_salary_grade_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+
+
+                ScrollView:
+                    do_scroll_y: True
+                    do_scroll_x: False
+                    bar_color: 0,0,1,1
+                    bar_pos_y: "right"
+                    bar_width: 3
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    scroll_type: ['bars', 'content']
+
+                    GridLayout:
+                        cols: 2
+                        rows: 9
+                        row_force_default: True
+                        row_default_height: 44
+                        col_force_default: True
+                        col_default_width: 160
+                        halign: "center"
+                        size_hint_y: None
+                        size_hint_x: None
+                        size: 800, 600
+                        
+                        MDLabel:
+                            text: "Pay Breakdown"
+                            font_size: 20
+                            bold: True
+                            
+                        MDLabel:
+                            font_size: 20
+                            text: "Amt in GHC"
+                            bold: True
+                            
+                        MDLabel:
+                            text: "Base Salary"
+                            font_size: 18
+                            size_hint_x: None
+                        MDTextField:
+                            id: base_salary
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Studies"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: staff_studies
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Honourarium"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: honourarium
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Motivation"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: staff_motivation
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Bonus"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: bonus
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "SSNIT Contibution"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: ssnit_contibution
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Income Tax"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: income_tax
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Welfare"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: staff_welfare
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200    
+                MDRectangleFlatButton:
+                    text: "SAVE"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.set_staff_salary()
+                    # on_release: root.manager.current = "set term"
+                    
+                MDRectangleFlatButton:
+                    text: "BACK"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.manager.current = "set"
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 10, 550
+                spacing: 10
+        
+
+
+
+<SetTerm>:
+    name: "set term"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 20
+         
+        MDTopAppBar:
+            title: 'Set Term Date'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        BoxLayout:
+            size: "1900dp", "550dp" 
+            orientation: "vertical"   
+            pos_hint: {"center_x":.5, "center_y": .5}
+            BoxLayout:
+                pos_hint: {"center_x":.5, "center_y": .5}
+                size: 400, 300
+                orientation: "vertical"
+                spacing: 15
+                MDLabel:
+                    text: "SET START AND END TERM DATES"
+                    bold: True
+                    halign: "center"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    font_size: 35
+                Spinner:
+                    id: select_term_spinner
+                    text: "Select Term"
+                    size_hint: (None, None)
+                    radius: 30
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_normal: ""
+                    background_color: .7, 0, 0, 1
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["First Term", "Second Term", "Third Term"]
+                    on_text: root.spinner_clicked(select_term_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+                GridLayout:
+                    cols: 4
+                    rows: 2
+                    MDLabel:
+                    MDRectangleFlatButton:
+                        text: "Start of Term"
+                        font_size: 15
+                        pos_hint: {"center_x": .5, 'center_y': .5}
+                        on_release: root.show_start_date()
+                    MDLabel:
+                        id: start_date_of_term
+                        font_size: 20
+                        text: "      Date shows here after seting it"
+                        halign: "center"
+                    MDLabel:
+                    MDLabel:
+                    MDRectangleFlatButton:
+                        text: " End of Term "
+                        font_size: 15
+                        pos_hint: {"center_x": .5, 'center_y': .5}
+                        on_release: root.show_end_date()
+                    MDLabel:
+                        id: end_date_of_term
+                        font_size: 20
+                        text: "      Date shows here after seting it"
+                        halign: "center"
+                    MDLabel:
+                    
+
+            BoxLayout:
+                orientation: "vertical"
+                spacing: 30
+                size: 400, 250
+                pos_hint: {"center_x":.5, "center_y": .5}
+
+                Widget:
+                MDRoundFlatButton:
+                    text: "SET"
+                    font_size: 13
+                    pos_hint: {"center_x": 0.5}
+                    on_release: root.set_term()
+
+                MDRoundFlatButton:
+                    text: "BACK"
+                    font_size: 13
+                    pos_hint: {"center_x": 0.5}
+                    on_release: root.manager.current = "set"
+                Widget:
+                Widget:
+
+
+<FeesBreakdown>:
+    name: "fees breakdown"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 10
+                
+        MDTopAppBar:
+            title: 'Fees Breakdown'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1100, 550
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 480, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+                MDLabel:
+                    id: previous_fees_total
+                    text: "Previous total fees shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "  Show Previous Total  "
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_previous_fees_total()
+                MDLabel:
+                    id: previous_fees_w_o_boarding_total
+                    text: "Previous fees without boarding shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "Previous w/o Boarding"
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_previous_fees_w_o_total()
+                MDLabel:
+                    id: current_fee_total
+                    text: "Current total fees shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "  Show Current Total  "
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_current_fees_total()
+                MDLabel:
+                    id: current_fee_w_o_boarding_total
+                    text: "Current fees without boarding shows here"
+                    halign: "center"
+                MDRectangleFlatButton:
+                    text: "Current w/o Boarding"
+                    pos_hint: {"center_x": .5, "center_y":.5}
+                    on_release: root.show_current_fees_w_o_total()
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 590, 550
+                spacing: 10
+                
+                Spinner:
+                    id: select_level_grade_spinner
+                    text: "Select class"
+                    size_hint: (None, None)
+                    radius: 30
+                    size: 350, 45
+                    font_size: 20
+                    bold: True
+                    background_normal: ""
+                    background_color: .7, 0, 0, 1
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.grades
+                    on_text: root.spinner_clicked(select_level_grade_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+
+                
+                Spinner:
+                    id: select_term_spinner
+                    text: "Select Term"
+                    size_hint: (None, None)
+                    radius: 30
+                    size: 350, 45
+                    font_size: 20
+                    bold: True
+                    background_normal: ""
+                    background_color: .7, 0, 0, 1
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: ["First Term", "Second Term", "Third term"]
+                    on_text: root.spinner_clicked(select_term_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+
+
+                ScrollView:
+                    do_scroll_y: True
+                    do_scroll_x: False
+                    bar_color: 0,0,1,1
+                    bar_pos_y: "right"
+                    bar_width: 3
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    scroll_type: ['bars', 'content']
+
+                    GridLayout:
+                        cols: 2
+                        rows: 12
+                        row_force_default: True
+                        row_default_height: 44
+                        col_force_default: True
+                        col_default_width: 160
+                        halign: "center"
+                        size_hint_y: None
+                        size_hint_x: None
+                        size: 800, 600
+                        
+                        MDLabel:
+                            text: "Fees"
+                            font_size: 20
+                            bold: True
+                            
+                        MDLabel:
+                            font_size: 20
+                            text: "Amt in GHC"
+                            bold: True
+                            
+                        MDLabel:
+                            text: "Tuition"
+                            font_size: 18
+                            size_hint_x: None
+                        MDTextField:
+                            id: tuition
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Studies"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: studies
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "PTA"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: pta_levy
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+
+                        MDLabel:
+                            text: "Printing"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: printing
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Maintenance"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: maintenance
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Motivation"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: motivation
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Library"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: library
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Canteen"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: can_teen
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Sanitation"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: sanitation
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Sports"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: sports
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                        MDLabel:
+                            text: "Boarding Fees"
+                            font_size: 18
+                            size_hint_x: None
+                            width: 200
+                        MDTextField:
+                            id: boarding_fees
+                            font_size: 18
+                            input_filter: "float"
+                            size_hint_x: None
+                            width: 200
+                         
+                MDRoundFlatButton:
+                    text: "SAVE"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.confirm_set_fees()
+                MDRoundFlatButton:
+                    text: "BACK"
+                    font_size: 13
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: root.manager.current = "set"
+            BoxLayout:
+                orientation: "vertical"
+                size: 10, 550
+                spacing: 10
+
+
+<Analytics>: 
+    name: "analytics"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Analytics'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        Widget:
+        Widget:
+
+        MDRoundFlatIconButton:
+            icon:'currency-usd'
+            text: "      FIGURES       "
+            size_hint_x: None
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "figures"
+        MDRoundFlatIconButton:
+            icon: "graph"
+            text: "     GRAPHS        " 
+            size_hint_x: None
+            font_size: 30
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = "graphs"
+        
+        MDRoundFlatButton:
+            text: " BACK "
+            font_size: 15
+            pos_hint: {"center_x": .5, 'center_y': .5}
+            on_release: root.manager.current = "manage"
+        Widget:
+        Widget:
+
+
+           
+<Figures>: 
+    name: "figures"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Income & Expenditure Analytics'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        BoxLayout:
+            id: mother_box
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            BoxLayout:
+                id: first_box
+                orientation: "vertical"
+                size: 280, 550
+                pos: 5, 100
+                size_hint: None, None
+                spacing: 10
+             
+                Spinner:
+                    id: select_year_spinner
+                    text: "Select Year"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    values: root.years
+                    on_text: root.spinner_clicked(select_year_spinner.text)
+                    on_text: self.background_color= 0,.6,0,.9
+
+
+                    
+                Spinner:
+                    id: select_term_spinner
+                    text: "Select Term"
+                    size_hint: (None, None)
+                    size: 250, 44
+                    font_size: 20
+                    bold: True
+                    values: ["First Term", "Second Term", "Third Term", "Yearly"]
+                    background_color: .7, 0, 0, .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_text: root.spinner_clicked(select_term_spinner.text)
+                    on_text: self.background_color= 0,.6,0,1
+
+                MDRoundFlatButton:
+                    text: " SHOW "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.get_table()
+                MDRoundFlatButton:
+                    text: " PRINT "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size: 13
+                    pos_hint: {"center_x": .5, 'center_y': .5}
+                    on_release: root.manager.current = "analytics"
+
+               
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+                Widget:
+
+            BoxLayout:
+                id: box
+                orientation: "vertical"
+                size: 500, 300
+                spacing: 10
+
+<Graphs>: 
+    name: "graphs"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 25
+         
+        MDTopAppBar:
+            title: 'Graphs'
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+        BoxLayout:
+            id: mother_box
+            orientation:'vertical'
+            size: 1200, 450
+            spacing: 15
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+            MDLabel:
+                text: "Select the timeline and graph type"
+                font_size: 30
+                halign: "center"
+                bold: True
+            # Widget:
+            CustomSpinner:
+                id: select_year_spinner
+                text: "Select Year"
+                size_hint: (None, None)
+                size: 250, 44
+                font_size: 20
+                bold: True
+                background_color: .7, 0, 0, .9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                values: root.years
+                on_text: root.spinner_clicked(select_year_spinner.text)
+                on_text: self.background_color= 0,.6,0,.9
+
+                
+            CustomSpinner:
+                id: select_term_spinner
+                text: "Select Term"
+                size_hint: (None, None)
+                size: 250, 44
+                font_size: 20
+                bold: True
+                values: ["First Term", "Second Term", "Third Term", "Yearly"]
+                background_color: .7, 0, 0, .9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_text: root.spinner_clicked(select_term_spinner.text)
+                on_text: self.background_color= 0,.6,0,.9
+
+            CustomSpinner:
+                id: select_data_type_spinner
+                text: "Select Graph Type"
+                size_hint: (None, None)
+                size: 250, 44
+                font_size: 20
+                bold: True
+                values: ["Bar Chart", "Pie Chart", "Donut Chart"]
+                background_color: .7, 0, 0, .9
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_text: root.spinner_clicked(select_data_type_spinner.text)
+                on_text: self.background_color= 0,.6,0,.9
+
+            
+            MDRoundFlatButton:
+                text: " Income"
+                font_size: 15
+                pos_hint: {"center_x": .5, 'center_y': .5}
+                on_release: root.get_income_graph()
+            MDRoundFlatButton:
+                text: " Expenditure "
+                font_size: 15
+                pos_hint: {"center_x": .5, 'center_y': .5}
+                on_release: root.get_expenditure_graph()
+            MDRoundFlatButton:
+                text: " Income & Expenditure "
+                font_size: 15
+                pos_hint: {"center_x": .5, 'center_y': .5}
+                on_release: root.get_income_and_expenditure_graph()
+            
+            Widget:
+            MDFillRoundFlatButton:
+                text: " BACK "
+                font_size: 13
+                pos_hint: {"center_x": .5, 'center_y': .5}
+                on_release: root.manager.current = "analytics"
+                on_release: root.del_spinner_choices()
+            
+            Widget:
+            Widget:      
+<Expenditure>:
+    name: "expenditure"
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "assets/hi.jpg"
+
+    MDCard:
+        size_hint: None, None
+        radius: 20
+        pos: 80, 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+        size: "1199dp", "690dp"
+        orientation: "vertical"
+        spacing: 20
+         
+        MDTopAppBar:
+            title: "Expenditure"
+            left_action_items: [["laptop",]]
+            right_action_items: [['logout-variant', lambda x: root.logout()]]
+
+        BoxLayout:
+            orientation:'horizontal'
+            size: 1200, 450
+            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+            spacing: 50
+
+            BoxLayout:
+                orientation: "vertical"
+                size: 400, 550
+                pos: 50, 100
+                size_hint: None, None
+                spacing: 10
+
+            BoxLayout:
+                id: edit_box
+                orientation: "vertical"
+                size: 600, 400
+                spacing: 10
+                pos: 460, 100
+                ScrollView:
+                    do_scroll_y: True
+                    do_scroll_x: False
+                    bar_color: 0,0,1,1
+                    bar_pos_y: "right"
+                    bar_width: 3
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    scroll_type: ['bars', 'content']
+                    # bar_inactive_color: 0, 1, 0, 1
+            
+                    BoxLayout:
+                        orientation:'vertical'
+                        size_hint_y: None
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                        size: 500, 480
+                        spacing: 7
+                        MDLabel:
+                            text: "EXPENDITURE"
+                            font_size: 24
+                            bold: True
+                            foreground_color: 0,0,0,1
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                            halign: "center"
+                        CustomSpinner:
+                            id: select_term_spinner
+                            text: "Select Term"
+                            size_hint: (None, None)
+                            font_size: 20
+                            size: 300, 40
+                            bold: True
+                            values: ["First Term", "Second Term", "Third Term"]
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            on_text: self.background_color= 0,.6,0,1 
+                            on_text: root.spinner_clicked(select_term_spinner.text)
+                        CustomSpinner:
+                            id: purpose_of_expenditure_spinner
+                            text: "Select Purpose"
+                            size_hint: (None, None)
+                            font_size: 20
+                            size: 300, 40
+                            bold: True
+                            values: ["Academic", "Canteen", "Tax", "Salary", "Utility", "Miscellaneous"]
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                            on_text: self.background_color= 0,.6,0,1 
+                            on_text: root.spinner_clicked(purpose_of_expenditure_spinner.text) 
+                        
+                        MDTextField:
+                            id: expenditure_amt
+                            hint_text: "Amt in GHc"
+                            size_hint_x: None
+                            helper_text: "No commas necessary"
+                            helper_text_mode: "on_focus"
+                            input_filter: "float"
+                            icon_right: "money"
+                            width: 300
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5} 
+
+                        MDTextField:
+                            id: description_of_expense
+                            hint_text: "Description"
+                            size_hint_x: None
+                            helper_text: "Brief description of expense"
+                            helper_text_mode: "on_focus"
+                            icon_right: "number"
+                            width: 300
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        MDTextField:
+                            id: authorised_by
+                            hint_text: "Authorised by"
+                            size_hint_x: None
+                            helper_text: "Please enter authority's fullname"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-female"
+                            width: 300
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+                        MDTextField:
+                            id: first_signatory
+                            hint_text: "Signitory 1"
+                            size_hint_x: None
+                            helper_text: "Name of first signitory"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-female"
+                            width: 300
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        MDTextField:
+                            id: second_signatory 
+                            hint_text: "Signitory 2"
+                            size_hint_x: None
+                            helper_text: "Name of second signitory"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-female"
+                            width: 300
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+
+                        MDTextField:
+                            id: third_signatory 
+                            hint_text: "Signitory 3"
+                            size_hint_x: None
+                            helper_text: "Name of third signitory"
+                            helper_text_mode: "on_focus"
+                            icon_right: "male-female"
+                            width: 300
+                            font_size: 20
+                            pos_hint: {"center_x": 0.5}
+                MDRoundFlatButton:
+                    text: " SAVE "
+                    font_size:13
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    on_release: root.confirm_expense()
+                MDRoundFlatButton:
+                    text: " BACK "
+                    font_size:13
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    on_release: root.manager.current = "home"
+                    pos: .5, .1
+            BoxLayout:
+                size: 50, 500
+
+
+
+
+<CustomSpinnerOptions@SpinnerOption>:
+    background_normal: ""
+    background_color: 207/255, 201/255, 203/255, 1
+    foreground_color: 1,1,1,1
+    on_release: self.background_color= 0,.6,0,1
+    foreground_color: 0,0,0,1
+
+
+<CustomDropdown@DropDown>:
+    max_height: 400
+    bar_width: 3
+    bar_color: 1, 1, 1, 1
+    bar_inactive_color: 1,1,1,1
+    effect_cls: "ScrollEffect"
+    scroll_type: ['bars', 'content']
+
+<CustomSpinner@Spinner>:
+    canvas.before:
+        Color:
+            rgba: 1, 0,.2,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    background_normal: ""
+    background_color: .5,0,0, 1
+    size_hint: (None, None)
+    size: 200,48
+    pos_hint: {"center_x": .5, "center_x": .5}
+    dropdown_cls: Factory.CustomDropdown
+    option_cls: Factory.CustomSpinnerOptions
+
+# <MDFloatLayout>
+#     md_bg_color = 1,1,1,1
+#     MDRoundFlatButton:
+#         canvas.before:
+#             Color:
+#                 rgba: 1,1,1,1      

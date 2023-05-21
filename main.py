@@ -11,32 +11,14 @@ from kivymd.uix.dialog import MDDialog
 from kivy.config import Config
 from matplotlib import pyplot as plt
 from kivy.core.text import LabelBase
-import exceptions
-import logins
-# import fees
-import staff
+import src.exceptions as exceptions
+import src.logins as logins
+import src.staff as staff
 from students import students 
-# import expenditure
-import manage_setting
-import analytics
-import payments
-from payments import fees, expenditure
-
-# Window.size = (1920, 1000)
-# Window.pos = ('center')
-# class HoverItem(MDRoundFlatButton,  HoverBehavior):
-#     background = list((71/255, 104/255, 237/255, 1))
-#     def on_start(self):
-#         # Animation(size_hint=(.6, .1), d=0.3).start(self)
-#         Animation(d=2, size_hint=(.6, .1))
-#         # self.background = (251/255, 104/255, 23/255, 1) 
-
-#     def on_complete(self):
-#         Animation(d=2, size_hint=(.5, .9))
-
-#         # Animation(size_hint=(.5, .9), d=0.3).start(self)
-#         # self.background = (71/255, 104/255, 237/255, 1)
-
+import src.manage_setting as manage_setting
+import src.analytics as analytics
+# import payments
+from src.payments import fees, expenditure
 
 class Home(Screen):
     def logout(self):
@@ -96,7 +78,7 @@ class SmartTracker(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Purple"
         self.theme_cls.theme_style = "Light"
-        return Builder.load_file("main.kv")
+        return Builder.load_file("Styles/main.kv")
 
 
 if __name__ == "__main__":

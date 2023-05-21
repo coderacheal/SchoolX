@@ -1,6 +1,6 @@
 import sqlite3
 import datetime
-import exceptions
+import src.exceptions as exceptions
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton

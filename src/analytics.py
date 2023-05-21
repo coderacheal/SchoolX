@@ -1,7 +1,7 @@
 # import kivy
 import sqlite3
 # import datetime
-from exceptions import EmptyClassSpinnerError
+from src.exceptions import EmptyClassSpinnerError
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton
