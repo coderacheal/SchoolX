@@ -11,14 +11,15 @@ from kivymd.uix.dialog import MDDialog
 from kivy.config import Config
 from matplotlib import pyplot as plt
 from kivy.core.text import LabelBase
-import src.exceptions as exceptions
-import src.logins as logins
-import src.staff as staff
-from students import students 
-import src.manage_setting as manage_setting
-import src.analytics as analytics
-# import payments
+
+
 from src.payments import fees, expenditure
+import src.logins.logins as logins
+import src.Staff.staff as staff
+from src.students import students 
+import src.exceptions.exceptions as exceptions
+import src.analytics.analytics as analytics
+import src.settings.manage_setting as manage_setting
 
 class Home(Screen):
     def logout(self):
@@ -74,12 +75,12 @@ class WindowManager(ScreenManager):
     pass
 
 
-class SmartTracker(MDApp):
+class SchoolX(MDApp):
     def build(self):
-        self.theme_cls.primary_palette = "Purple"
+        self.theme_cls.primary_palette = "Teal"
         self.theme_cls.theme_style = "Light"
-        return Builder.load_file("Styles/main.kv")
+        return Builder.load_file("main.kv")
 
 
 if __name__ == "__main__":
-    SmartTracker().run()
+    SchoolX().run()
