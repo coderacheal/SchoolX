@@ -1,4 +1,4 @@
-# Smart School
+# School X
 <a name="readme-top"></a>
 
 
